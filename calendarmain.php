@@ -27,12 +27,4 @@
     <button id="previous" class="button"><span><</span></button>
     <button id="next" class="button"><span>></span></button>
 
-    <script>
-
-        function updateCal(){
-            let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-            let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-            let 
-        }
+    
