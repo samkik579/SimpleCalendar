@@ -3,21 +3,30 @@ let months = ["January", "February", "March", "April", "May", "June", "July", "A
 let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 // For our purposes, we can keep the current month in a variable in the global scope
-var currentMonth = new Month(2017, 9); // October 2017
+var currentMonth = new Month(2019, 9); // October 2017
 
 // Change the month when the "next" button is pressed
-document.getElementById("next_month_btn").addEventListener("click", function (event) {
-    currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
-    updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-    alert("The new month is " + currentMonth.month + " " + currentMonth.year);
-}, false);
+//document.getElementById("next_month_btn").addEventListener("click", function (event) {
+//currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
+//updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+//alert("The new month is " + currentMonth.month + " " + currentMonth.year);
+//}, false);
+
+updateCalendar()
 
 
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
 function updateCalendar() {
     var weeks = currentMonth.getWeeks();
+    console.log(weeks.length)
 
+    // console.log(weeks);
+    // for (var e of weeks){
+    //     c
+    // }
+
+    let count = 0;
     for (var w in weeks) {
         var days = weeks[w].getDates();
         // days contains normal JavaScript Date objects.
@@ -25,13 +34,21 @@ function updateCalendar() {
         alert("Week starting on " + days[0]);
 
         for (var d in days) {
-
-            // You can see console.log() output in your JavaScript debugging tool, like Firebug,
-            // WebWit Inspector, or Dragonfly.
-            console.log(days[d].toISOString());
+            count++;
+            if (w[0])
+                // You can see console.log() output in your JavaScript debugging tool, like Firebug,
+                // WebWit Inspector, or Dragonfly.
+                console.log(days[d].toISOString());
         }
     }
 }
+
+// Week starts with Wed --> day 4  
+// Wed = 1 (id 4 =1); 
+// let offset = (id -1)
+// 28 days in month 
+// for(id from 4 - + 28) 
+//     box = id - offset  
 
 
 
