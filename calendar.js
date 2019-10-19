@@ -24,17 +24,26 @@ function updateCalendar() {
 
     let count = 0;
     let firstweek = weeks[0];
-    let firstday = firstweek.getDates(); // date object 
-    let dayobj = firstday[0].getDateObject;
+    let firstday = firstweek.getDates();
+    let offset;
 
-    console.log(dayobj);
 
     for (i = 0; i < 6; i++) {
-        if (firstday[i] != currentMonth.month) {
+        if (firstday[i].getMonth() != currentMonth.month) {
             count++;
         }
-
+        else {
+            offset = count;
+            break;
+        }
     }
+
+    //offset is the first day of the month as a number
+
+    // for loop below should print out day of week 
+    //for (i = 1; i < 6; ++i) {
+    //console.log(days[i]);
+    //}
 
 
     for (var w in weeks) {
