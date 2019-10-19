@@ -9,13 +9,15 @@ let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "S
 // For our purposes, we can keep the current month in a variable in the global scope
 var currentMonth = new Month(2019, 9); // October 2017
 
-// Change the month when the "next" button is pressed
-//document.getElementById("next_month_btn").addEventListener("click", function (event) {
-//currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
-//updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-//alert("The new month is " + currentMonth.month + " " + currentMonth.year);
-//}, false);
 
+
+let numDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+document.getElementById("prev_month_btn").addEventListener("click", function () {
+    currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
+    updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+    alert("The new month is " + currentMonth.month + " " + currentMonth.year);
+}, false);
 
 updateCalendar();
 
@@ -44,28 +46,42 @@ function updateCalendar() {
     //offset is the first day of the month as a number
     // for loop below should print out day of week 
 
-    window.onload = function () {
-        this.Object.eListener();
-    }
+    // window.onload = function () {
+    //     this.Object.eListener();
+    // }
 
-    let object = {
-        info: document.getElementsByClassName('row1'),
+    // let object = {
+    //     info: document.getElementsByClassName('row1'),
 
-        eListener: function () {
-            let className = this.info;
+    //     eListener: function () {
+    //         let className = this.info;
 
-            for (let i = 0; i < className.length; i++) {
-                className[i].addEventListener('click', function () { console.log(this.id + offset) });
+    //         for (let i = 0; i < className.length; i++) {
+    //             className[i].addEventListener('click', function () { console.log(this.id + offset) });
 
-            }
+    //         }
+    //     }
+    // }
+
+    let numcurrentmonth = numDays[currentMonth.month];
+
+    for (let i = offset; i <= numcurrentmonth + offset; ++i) {
+        if (i - offset <= 0) {
+            $('#' + i).append("");
         }
+        else {
+            $('#' + i).append(i - offset);
+        }
+
     }
 
-
-
+    // $('#' + i).innerhtml(id - offset); Ids
+    // $('.') Classes
 
     for (var w in weeks) {
-        var days = weeks[w].getDates; // get array of dates
+        let dayNum = offset;
+        var days = weeks[w].getDates(); // get array of dates
+        console.log(days);
 
         //console.log("Week starts on " + days[0]); // tells us what day weeks starts on
 
@@ -89,25 +105,35 @@ alert("Week starting on " + days[0]);
 
 
 
+// Change the month when the "next" button is pressed
 
+// next month
+let el = document.getElementById("next_month_btn");
+if (el) {
+    el.addEventListener("click", function () {
+        currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
+        updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+        alert("The new month is " + currentMonth.month + " " + currentMonth.year);
+    }, false);
+}
 
 
 (function () {
     "use strict";
 
-	/* Date.prototype.deltaDays(n)
-	 * 
-	 * Returns a Date object n days in the future.
-	 */
+    /* Date.prototype.deltaDays(n)
+     * 
+     * Returns a Date object n days in the future.
+     */
     Date.prototype.deltaDays = function (n) {
         // relies on the Date object to automatically wrap between months for us
         return new Date(this.getFullYear(), this.getMonth(), this.getDate() + n);
     };
 
-	/* Date.prototype.getSunday()
-	 * 
-	 * Returns the Sunday nearest in the past to this date (inclusive)
-	 */
+    /* Date.prototype.getSunday()
+     * 
+     * Returns the Sunday nearest in the past to this date (inclusive)
+     */
     Date.prototype.getSunday = function () {
         return this.deltaDays(-1 * this.getDay());
     };
