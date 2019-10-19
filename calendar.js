@@ -13,15 +13,8 @@ var currentMonth = new Month(2019, 9); // October 2017
 
 let numDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-document.getElementById("prev_month_btn").addEventListener("click", function () {
-    currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
-    updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-    alert("The new month is " + currentMonth.month + " " + currentMonth.year);
-}, false);
 
 updateCalendar();
-
-
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
 function updateCalendar() {
@@ -33,6 +26,8 @@ function updateCalendar() {
     let firstday = firstweek.getDates();
     let offset;
 
+    //console.log(firstday);
+
 
     for (i = 0; i < 6; i++) {
         if (firstday[i].getMonth() != currentMonth.month) {
@@ -43,6 +38,8 @@ function updateCalendar() {
             break;
         }
     }
+
+    // console.log(currentMonth.month + " " + offset);
     //offset is the first day of the month as a number
     // for loop below should print out day of week 
 
@@ -65,31 +62,46 @@ function updateCalendar() {
 
     let numcurrentmonth = numDays[currentMonth.month];
 
+    //console.log(numcurrentmonth);
+    for (let i = 1; i < offset; i++) {
+        $('#' + i).html("");
+    }
+
     for (let i = offset; i <= numcurrentmonth + offset; ++i) {
+
+        let diff = i - offset;
+
         if (i - offset <= 0) {
-            $('#' + i).append("");
+            $('#' + i).html("");
         }
         else {
-            $('#' + i).append(i - offset);
+            $('#' + i).html(i - offset);
         }
 
     }
+
+    for (let i = numcurrentmonth + offset + 1; i < 42 + offset; i++) {
+        $('#' + i).html("");
+    }
+
+    document.getElementById("month").innerHTML = months[currentMonth.month];
+    document.getElementById("year").innerHTML = currentMonth.year;
 
     // $('#' + i).innerhtml(id - offset); Ids
     // $('.') Classes
 
-    for (var w in weeks) {
-        let dayNum = offset;
-        var days = weeks[w].getDates(); // get array of dates
-        console.log(days);
+    // for (var w in weeks) {
+    //     let dayNum = offset;
+    //     var days = weeks[w].getDates(); // get array of dates
+    //     console.log(days);
 
-        //console.log("Week starts on " + days[0]); // tells us what day weeks starts on
+    //     //console.log("Week starts on " + days[0]); // tells us what day weeks starts on
 
-        for (var d in days) {
-            console.log(d);
+    //     for (var d in days) {
+    //         console.log(d);
 
-        }
-    }
+    //     }
+    // }
 }
 
 // days contains normal JavaScript Date objects.
@@ -103,19 +115,24 @@ alert("Week starting on " + days[0]);
 // for(id from 4 - + 28) 
 //     box = id - offset  
 
-
-
-// Change the month when the "next" button is pressed
-
-// next month
-let el = document.getElementById("next_month_btn");
-if (el) {
-    el.addEventListener("click", function () {
+let nm = document.getElementById("next_month_btn");
+if (nm) {
+    nm.addEventListener("click", function () {
         currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
         updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-        alert("The new month is " + currentMonth.month + " " + currentMonth.year);
+        //alert("The new month is " + months[currentMonth.month] + " " + currentMonth.year);
     }, false);
 }
+
+let pm = document.getElementById("prev_month_btn");
+if (pm) {
+    pm.addEventListener("click", function () {
+        currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
+        updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+        // alert("The new month is " + months[currentMonth.month] + " " + currentMonth.year);
+    }, false);
+}
+
 
 
 (function () {
