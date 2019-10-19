@@ -12,36 +12,57 @@ var currentMonth = new Month(2019, 9); // October 2017
 //alert("The new month is " + currentMonth.month + " " + currentMonth.year);
 //}, false);
 
-updateCalendar()
+
+updateCalendar();
 
 
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
 function updateCalendar() {
     var weeks = currentMonth.getWeeks();
-    console.log(weeks.length)
-
-    // console.log(weeks);
-    // for (var e of weeks){
-    //     c
-    // }
+    //let firstweek = weeks[0];
 
     let count = 0;
-    for (var w in weeks) {
-        var days = weeks[w].getDates();
-        // days contains normal JavaScript Date objects.
+    let firstweek = weeks[0];
+    let firstday = firstweek.getDates(); // date object 
+    let dayobj = firstday[0].getDateObject;
 
-        alert("Week starting on " + days[0]);
+    console.log(dayobj);
+
+    for (i = 0; i < 6; i++) {
+        if (firstday[i] != currentMonth.month) {
+            count++;
+        }
+
+    }
+
+
+    for (var w in weeks) {
+        var days = weeks[w].getDates; // get array of dates
+        //console.log("Week starts on " + days[0]); // tells us what day weeks starts on
 
         for (var d in days) {
-            count++;
-            if (w[0])
-                // You can see console.log() output in your JavaScript debugging tool, like Firebug,
-                // WebWit Inspector, or Dragonfly.
-                console.log(days[d].toISOString());
+            console.log(d);
+            week[0].get
+            eachWeekday[d].children[w].className = "row1";
+            eachWeekday[d].children[w].innerHTML = days[d].getDate();
+            if (days[d].getMonth() == currentMonth.month) {
+                weekday[d].children[w].classList.add("current-month");
+            }
+            if (weekday[d].childre[w].innerHTML == "1") {
+                let monthName = document.createTextNode(
+                    Months[days[d].getMonth()].substring(0, 3) + " "
+                );
+                weekday[d].children[w].prepend(monthName);
+            }
+
         }
     }
 }
+
+// days contains normal JavaScript Date objects.
+
+alert("Week starting on " + days[0]);
 
 // Week starts with Wed --> day 4  
 // Wed = 1 (id 4 =1); 
