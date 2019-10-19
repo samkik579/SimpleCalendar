@@ -48,22 +48,11 @@ function updateCalendar() {
 
     for (var w in weeks) {
         var days = weeks[w].getDates; // get array of dates
+
         //console.log("Week starts on " + days[0]); // tells us what day weeks starts on
 
         for (var d in days) {
             console.log(d);
-            week[0].get
-            eachWeekday[d].children[w].className = "row1";
-            eachWeekday[d].children[w].innerHTML = days[d].getDate();
-            if (days[d].getMonth() == currentMonth.month) {
-                weekday[d].children[w].classList.add("current-month");
-            }
-            if (weekday[d].childre[w].innerHTML == "1") {
-                let monthName = document.createTextNode(
-                    Months[days[d].getMonth()].substring(0, 3) + " "
-                );
-                weekday[d].children[w].prepend(monthName);
-            }
 
         }
     }
