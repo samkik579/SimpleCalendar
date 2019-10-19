@@ -41,13 +41,27 @@ function updateCalendar() {
             break;
         }
     }
-
     //offset is the first day of the month as a number
-
     // for loop below should print out day of week 
-    //for (i = 1; i < 6; ++i) {
-    //console.log(days[i]);
-    //}
+
+    window.onload = function () {
+        this.Object.eListener();
+    }
+
+    let object = {
+        info: document.getElementsByClassName('row1'),
+
+        eListener: function () {
+            let className = this.info;
+
+            for (let i = 0; i < className.length; i++) {
+                className[i].addEventListener('click', function () { console.log(this.id + offset) });
+
+            }
+        }
+    }
+
+
 
 
     for (var w in weeks) {
