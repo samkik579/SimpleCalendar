@@ -47,7 +47,7 @@ function registerAjax(event) {
         .then(data => console.log(data.success ? "You've been Registered!" : `You were not a user ${data.message}`));
 }
 
-document.getElementById("register_btn").addEventListener("click", RegisterAjax, false); // Bind the AJAX call to button click
+document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click
 
 
 updateCalendar();
