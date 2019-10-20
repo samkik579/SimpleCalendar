@@ -1,8 +1,7 @@
 
+document.addEventListener("DOMContentLoaded", onload, false);
+
 //Log In
-
-
-
 let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -10,11 +9,17 @@ let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "S
 var currentMonth = new Month(2019, 9); // October 2017
 
 
-
-let numDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+let numDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+function onload() {
+    console.log("calendar.js");
+    document.getElementById("login_btn").addEventListener("click", loginAjax, false); // Bind the AJAX call to button click
+    document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click
+    
+    updateCalendar();
+}
 
 function loginAjax(event) {
-    // debugger;
+    //debugger;
     console.log("Login Ajax");
     const username = document.getElementById("username").value; // Get the username from the form
     const password = document.getElementById("password").value; // Get the password from the form
@@ -29,32 +34,17 @@ function loginAjax(event) {
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json', 'Accept': 'application/json'}
     })
-
     .then(response => response.json())
-    //.then(data => console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`))
-    .catch(err => console.error(err));
-    /* .then(response => response.json())
     .then(function(data) {
         console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`);
         if(data.success) {
-            document.getElementById('registeruser').style.display = 'hidden';
-        }  */
-        
-    
-
-    // fetch("login_ajax.php", {
-    //     method: 'POST',
-    //     body: JSON.stringify(data),
-    //     headers: { 'content-type': 'application/json' }
-    // })
-    // .then(response => response.json())
-    // .then(data => console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`));
-
-    // document.getElementById('registeruser').style.display = 'hidden';
-
+            document.getElementById('registeruser').style.display = 'none';
+            document.getElementById('username').value = "";
+            document.getElementById('password').value = "";
+        }
+    });
 }
 
-document.getElementById("login_btn").addEventListener("click", loginAjax, false); // Bind the AJAX call to button click
 
 function registerAjax(event) {
     const username = document.getElementById("newusername").value; // Get the username from the form
@@ -73,10 +63,8 @@ function registerAjax(event) {
 }
 
 
-document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click
 
 
-updateCalendar();
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
 function updateCalendar() {
@@ -262,3 +250,4 @@ function updateCalendar() {
         };
     }
 }
+
