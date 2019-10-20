@@ -9,8 +9,8 @@ $json_str = file_get_contents('php://input');
 $json_obj = json_decode($json_str, true);
 
 //Variables can be accessed as such:
-$username = $json_obj['username'];
-$password = $json_obj['password'];
+$username = $json_obj['newusername'];
+$password = $json_obj['newpassword'];
 //This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
 
 $passhashed = password_hash((string) $password, PASSWORD_BCRYPT);

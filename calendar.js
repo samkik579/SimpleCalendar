@@ -14,8 +14,12 @@ var currentMonth = new Month(2019, 9); // October 2017
 let numDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
 function loginAjax(event) {
+    // debugger;
+    console.log("Login Ajax");
     const username = document.getElementById("username").value; // Get the username from the form
     const password = document.getElementById("password").value; // Get the password from the form
+    console.log(username);
+    console.log(password);
 
     // Make a URL-encoded string for passing POST data:
     const data = { 'username': username, 'password': password };
@@ -23,20 +27,41 @@ function loginAjax(event) {
     fetch("login_ajax.php", {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: { 'content-type': 'application/json' }
+        headers: { 'content-type': 'application/json', 'Accept': 'application/json'}
     })
-        .then(response => response.json())
-        .then(data => console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`));
+
+    .then(response => response.json())
+    //.then(data => console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`))
+    .catch(err => console.error(err));
+    /* .then(response => response.json())
+    .then(function(data) {
+        console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`);
+        if(data.success) {
+            document.getElementById('registeruser').style.display = 'hidden';
+        }  */
+        
+    
+
+    // fetch("login_ajax.php", {
+    //     method: 'POST',
+    //     body: JSON.stringify(data),
+    //     headers: { 'content-type': 'application/json' }
+    // })
+    // .then(response => response.json())
+    // .then(data => console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`));
+
+    // document.getElementById('registeruser').style.display = 'hidden';
+
 }
 
 document.getElementById("login_btn").addEventListener("click", loginAjax, false); // Bind the AJAX call to button click
 
 function registerAjax(event) {
-    const username = document.getElementById("username").value; // Get the username from the form
-    const password = document.getElementById("password").value; // Get the password from the form
+    const username = document.getElementById("newusername").value; // Get the username from the form
+    const password = document.getElementById("newpassword").value; // Get the password from the form
 
     // Make a URL-encoded string for passing POST data:
-    const data = { 'username': username, 'password': password };
+    const data = { 'newusername': username, 'newpassword': password };
 
     fetch("registerUser.php", {
         method: 'POST',
@@ -48,13 +73,14 @@ function registerAjax(event) {
 }
 
 
-//document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click
+document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click
 
 
 updateCalendar();
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
 function updateCalendar() {
+    console.log("updating calendar");
     var weeks = currentMonth.getWeeks();
     //let firstweek = weeks[0];
 
@@ -235,4 +261,4 @@ function updateCalendar() {
             return weeks;
         };
     }
-
+}

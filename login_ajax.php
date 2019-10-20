@@ -2,8 +2,9 @@
 // login_ajax.php
 require 'database.php';
 
-$stmt = $mysqli->prepare("SELECT COUNT(*), id, pass_word FROM users WHERE username=?");
 header("Content-Type: application/json"); // Since we are sending a JSON response here (not an HTML document), set the MIME Type to application/json
+$stmt = $mysqli->prepare("SELECT COUNT(*), id, pass_word FROM users WHERE username=?");
+
 
 //Because you are posting the data via fetch(), php has to retrieve it elsewhere.
 $json_str = file_get_contents('php://input');
@@ -42,7 +43,7 @@ if($cnt == 1 && password_verify($username, $password) ){
 		"success" => true
 	));
 	exit;
-}else{
+} else {
 	echo json_encode(array(
 		"success" => false,
 		"message" => "Incorrect Username or Password"
