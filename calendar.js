@@ -47,7 +47,7 @@ function registerAjax(event) {
         .then(data => console.log(data.success ? "You've been Registered!" : `You were not a user ${data.message}`));
 }
 
-document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click
+//document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click
 
 
 updateCalendar();
@@ -142,7 +142,7 @@ function updateCalendar() {
 
 // days contains normal JavaScript Date objects.
 
-alert("Week starting on " + days[0]);
+//alert("Week starting on " + days[0]);
 
 // Week starts with Wed --> day 4  
 // Wed = 1 (id 4 =1); 
