@@ -101,7 +101,8 @@ function eventAjax(event){
 
 
 function geteventAjax(event){
-    const data = $events_array; 
+    const pathToPHPFile = 'getevents.php'; 
+    const data = {}
 
     fetch("getEvents.php", {
         method: 'POST',

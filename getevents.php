@@ -29,8 +29,8 @@
 	$events_array = array();
 
 	while($placeholder = $result->fetch()){
-		black = ($events_array, htmlspecialchars("title" => $title, "note" => $note, "month" => $month, "day" => $day, 
-		"year" => $year, "hour" => $hour, "minute" => $minute);
+		array_push($events_array, htmlspecialchars($placeholder['title']), htmlspecialchars($placeholder['note']), 
+		htmlspecialchars($placeholder['startdate']), htmlspecialchars($placeholder['enddate']), htmlspecialchars($placeholder['time']));
 	}
 
 	
