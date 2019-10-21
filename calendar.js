@@ -12,6 +12,7 @@ function onload() {
     document.getElementById("login_btn").addEventListener("click", loginAjax, false); // Bind the AJAX call to button click
     document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click
     document.getElementById("event_btn").addEventListener("click", eventAjax, false);
+    document.getElementById("logout_btn").addEventListener("click", logoutAjax, false);
 
     document.getElementById("next_month_btn").addEventListener("click", function () {
             currentMonth = currentMonth.nextMonth();
@@ -56,6 +57,7 @@ function loginAjax(event) {
                 document.getElementById('registeruser').style.display = 'none';
                 document.getElementById('loginuser').style.display = 'none';
                 document.getElementById('addevent').style.visibility = 'visible';
+                document.getElementById('logout').style.visibility = 'visible';
 
                 
             }
@@ -97,20 +99,17 @@ function eventAjax(event){
         .then(data => console.log(data.success ? "You've have made an event!" : `Your event was not created :( ${data.message}`));
 }
 
-/* // function logoutAjax(event) {
-//     const username = document.getElementById("newusername").value; // Get the username from the form
+function logoutAjax(event) {
+     
+    //Make a URL-encoded string for passing POST data:
 
-    // Make a URL-encoded string for passing POST data:
-    const data = { 'newusername': username, 'newpassword': password };
-
-    fetch("registerUser.php", {
+    fetch("logout.php", {
         method: 'POST',
-        body: JSON.stringify(data),
         headers: { 'content-type': 'application/json' }
     })
         .then(response => response.json())
-        .then(data => console.log(data.success ? "You've been Registered!" : `You were not a user ${data.message}`));
-} */
+        .then(data => console.log(data.success ? "You've been logged out!" : `You are still logged in ${data.message}`));
+} 
 
 
 
