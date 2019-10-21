@@ -105,7 +105,7 @@ function eventAjax(event) {
 
 
 function geteventAjax(event) {
-    const data = "";
+    const data = currentMonth.month;
     fetch("getevents.php", {
         method: 'POST',
         body: JSON.stringify(data),
@@ -116,11 +116,18 @@ function geteventAjax(event) {
 }
 
 function printEvents(event) {
-    let arr = geteventAjax().responseTest.Split(',');
+    let arr = geteventAjax();
+
     for (i = 0; i < arr.length; i++) {
-        let temp = document.createElement("newEvent");
-        temp.appendChild(document.createTextNode(jsonData.array[i].title));
-        document.getElementById(jsonData.events[i].date).appendChild(temp);
+        if (arr[i].month == currentMonth.month && arr[i].day == d && arr[i].year == currentMonth.year) {
+            console.log(arr[i].title);
+            // let temp = document.createElement("newEvent");
+            // temp.appendChild(document.createTextNode(jsonData.array[i].title));
+            // appendChild(document.getElementById(jsonData.events[i].date).appendChild(temp);
+
+        }
+
+
 
     }
 }
@@ -156,6 +163,7 @@ function updateCalendar() {
             const date = new Date(days[d]);
             day.appendChild(document.createTextNode(date.getDate()));
             row.appendChild(day);
+            printEvents();
         }
         calendar.appendChild(row);
     }
