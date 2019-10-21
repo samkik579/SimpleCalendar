@@ -9,19 +9,13 @@
 
 	//Variables can be accessed as such:
 	$username = $_SESSION['username'];
-    $title = $json_obj['event_title'];
-    $month = $json_obj['event_month'];
-    $day = $json_obj['event_day'];
-	$year = $json_obj['event_year'];
-	$hour = $json_obj['event_hour'];
-	$minute = $json_obj['event_minute'];
-	$note = $json_obj['event_note'];
+    
+	
 	// echo ($username);
 	//This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
 
-	$user = $SESSION_['username'];
-
-	$stmt = $mysqli->prepare("SELECT username, title, note, month, day, year, hour, minute FROM events ORDER BY year, month, day, hour, minute WHERE username='$user" );
+	$stmt = $mysqli->prepare("SELECT username, title, note, startdate, enddate, time FROM events ORDER BY 
+	startdate, time WHERE username=? ");
 	
 
 	$stmt->bind_param('s', $username);
@@ -30,14 +24,13 @@
 	$stmt->execute();
 	// // Bind the results
 	//$stmt->bind_result($cnt, $user_id, $pwd_hash);
+	$result = $stmt->get_result();
 
 	$events_array = array();
-	$count = 0; 
 
-	while($stmt->fetch()){
-		$events_array[$count] = array("title" => $title, "note" => $note, "month" => $month, "day" => $day, 
+	while($placeholder = $result->fetch()){
+		black = ($events_array, htmlspecialchars("title" => $title, "note" => $note, "month" => $month, "day" => $day, 
 		"year" => $year, "hour" => $hour, "minute" => $minute);
-		$count = $count +1;
 	}
 
 	

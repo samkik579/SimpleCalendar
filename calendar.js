@@ -83,16 +83,14 @@ function registerAjax(event) {
 
 function eventAjax(event){
     const title = document.getElementById("title").value;
+    const startdate = document.getElementById("startdate").value;
+    const enddate = document.getElementById("enddate").value;
+    const time = document.getElementById("time").value;
     const note = document.getElementById("note").value;
-    const month = document.getElementById("month").value;
-    const day = document.getElementById("day").value;
-    const year = document.getElementById("year").value;
-    const hour = document.getElementById("hour").value; 
-    const minute = document.getElementById("minute").value;
 
-    const data = $events_array; 
-    console.log(data);
-    fetch("getevents.php", {
+    const data = {'title': title, 'startdate': startdate, 'enddate': enddate, 'time': time, 'note': note};
+    
+    fetch("addEvents.php", {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
@@ -101,8 +99,17 @@ function eventAjax(event){
         .then(data => console.log(data.success ? "You've have made an event!" : `Your event was not created :( ${data.message}`));
 }
 
+
 function geteventAjax(event){
-    const data 
+    const data = $events_array; 
+
+    fetch("getEvents.php", {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
+    })
+        .then(response => response.json())
+        .then(data => console.log(data.success ? "You've have made an event!" : `Your event was not created :( ${data.message}`));
 }
 
 function logoutAjax(event) {
@@ -114,19 +121,13 @@ function logoutAjax(event) {
         headers: { 'content-type': 'application/json' }
     })
         .then(response => response.json())
-        .then(data => console.log(data.success ? "You've been logged out!" : `You are still logged in ${data.message}`))
-        .then(clearEntries)
-        .then(eraseCalendar);
+        .then(data => console.log(data.success ? "You've been logged out!" : `You are still logged in ${data.message}`));
+        document.getElementById('registeruser').style.display = initial;
+        document.getElementById('loginuser').style.display = initial;
+        document.getElementById('addevent').style.display = 'none';
+        document.getElementById('logout').style.display = 'none';
 } 
 
-function clearEntries(event){
-    document.getElementById("username") = "";
-    document.getElementById("password") = "";
-}
-
-function eraseCalendar(event){
-    document.body.removeChild(document.getElementById("month"));
-}
 
 
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
