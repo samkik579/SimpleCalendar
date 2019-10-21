@@ -15,20 +15,20 @@ function onload() {
     document.getElementById("logout_btn").addEventListener("click", logoutAjax, false);
 
     document.getElementById("next_month_btn").addEventListener("click", function () {
-            currentMonth = currentMonth.nextMonth();
-            console.log(currentMonth) // Previous month would be currentMonth.prevMonth()
-            updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-            //alert("The new month is " + months[currentMonth.month] + " " + currentMonth.year);
+        currentMonth = currentMonth.nextMonth();
+        console.log(currentMonth) // Previous month would be currentMonth.prevMonth()
+        updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+        //alert("The new month is " + months[currentMonth.month] + " " + currentMonth.year);
     }, false);
-    
+
 
     document.getElementById("prev_month_btn").addEventListener("click", function () {
-            currentMonth = currentMonth.prevMonth(); 
-            console.log(currentMonth)// Previous month would be currentMonth.prevMonth()
-            updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-            // alert("The new month is " + months[currentMonth.month] + " " + currentMonth.year);
+        currentMonth = currentMonth.prevMonth();
+        console.log(currentMonth)// Previous month would be currentMonth.prevMonth()
+        updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+        // alert("The new month is " + months[currentMonth.month] + " " + currentMonth.year);
     }, false);
-    
+
 
     updateCalendar();
 }
@@ -58,8 +58,9 @@ function loginAjax(event) {
                 document.getElementById('loginuser').style.display = 'none';
                 document.getElementById('addevent').style.visibility = 'visible';
                 document.getElementById('logout').style.visibility = 'visible';
+                geteventAjax();
 
-                
+
             }
         });
 }
@@ -81,40 +82,38 @@ function registerAjax(event) {
         .then(data => console.log(data.success ? "You've been Registered!" : `You were not a user ${data.message}`));
 }
 
-function eventAjax(event){
+function eventAjax(event) {
     const title = document.getElementById("title").value;
     const startdate = document.getElementById("startdate").value;
     const enddate = document.getElementById("enddate").value;
     const time = document.getElementById("time").value;
     const note = document.getElementById("note").value;
 
-    const data = {'title': title, 'startdate': startdate, 'enddate': enddate, 'time': time, 'note': note};
-    
+    const data = { 'title': title, 'startdate': startdate, 'enddate': enddate, 'time': time, 'note': note };
+
     fetch("addEvents.php", {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
     })
         .then(response => response.json())
-        .then(data => console.log(data.success ? "You've have made an event!" : `Your event was not created :( ${data.message}`));
+    //.then(data => console.log(data.success ? "You've have made an event!" : `Your event was not created :( ${data.message}`));
 }
 
 
-function geteventAjax(event){
-    const pathToPHPFile = 'getevents.php'; 
-    const data = {}
-
+function geteventAjax(event) {
+    const data = "";
     fetch("getEvents.php", {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
     })
         .then(response => response.json())
-        .then(data => console.log(data.success ? "You've have made an event!" : `Your event was not created :( ${data.message}`));
+        .then(data => console.log(data));
 }
 
 function logoutAjax(event) {
-     
+
     //Make a URL-encoded string for passing POST data:
 
     fetch("logout.php", {
@@ -123,11 +122,11 @@ function logoutAjax(event) {
     })
         .then(response => response.json())
         .then(data => console.log(data.success ? "You've been logged out!" : `You are still logged in ${data.message}`));
-        document.getElementById('registeruser').style.display = initial;
-        document.getElementById('loginuser').style.display = initial;
-        document.getElementById('addevent').style.display = 'none';
-        document.getElementById('logout').style.display = 'none';
-} 
+    document.getElementById('registeruser').style.display = initial;
+    document.getElementById('loginuser').style.display = initial;
+    document.getElementById('addevent').style.display = 'none';
+    document.getElementById('logout').style.display = 'none';
+}
 
 
 
@@ -138,10 +137,10 @@ function updateCalendar() {
     var weeks = currentMonth.getWeeks();
     calendar.innerHTML = '';
 
-    for(let w in weeks){
+    for (let w in weeks) {
         const days = weeks[w].getDates();
         let row = document.createElement("tr");
-        for(let d in days){
+        for (let d in days) {
             let day = document.createElement("td");
             const date = new Date(days[d]);
             day.appendChild(document.createTextNode(date.getDate()));
