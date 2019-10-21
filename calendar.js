@@ -115,6 +115,16 @@ function geteventAjax(event) {
         .then(data => console.log(data));
 }
 
+function printEvents(event) {
+    let arr = geteventAjax().responseTest.Split(',');
+    for (i = 0; i < arr.length; i++) {
+        let temp = document.createElement("newEvent");
+        temp.appendChild(document.createTextNode(jsonData.array[i].title));
+        document.getElementById(jsonData.events[i].date).appendChild(temp);
+
+    }
+}
+
 function logoutAjax(event) {
 
     //Make a URL-encoded string for passing POST data:
@@ -132,14 +142,12 @@ function logoutAjax(event) {
 }
 
 
-
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
 function updateCalendar() {
     console.log("updating calendar");
     var weeks = currentMonth.getWeeks();
     calendar.innerHTML = '';
-
     for (let w in weeks) {
         const days = weeks[w].getDates();
         let row = document.createElement("tr");
@@ -151,6 +159,7 @@ function updateCalendar() {
         }
         calendar.appendChild(row);
     }
+
     //let firstweek = weeks[0];
 
     // let count = 0;

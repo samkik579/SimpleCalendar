@@ -14,7 +14,8 @@
 	// echo ($username);
 	//This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
 
-	$stmt = $mysqli->prepare("SELECT username, title, note, start_date, end_date, time FROM events WHERE username=? ORDER BY start_date, time");
+	$stmt = $mysqli->prepare("SELECT username, MONTH(start_date), DAY(start_date), YEAR(start_date), time, note from events where username =? order by start_date, time");
+	
 	
 
 	$stmt->bind_param('s', $username);
@@ -29,7 +30,7 @@
 
 	while($placeholder = $result->fetch_assoc()){
 		array_push($events_array, htmlspecialchars($placeholder['title']), htmlspecialchars($placeholder['note']), 
-		htmlspecialchars($placeholder['start_date']), htmlspecialchars($placeholder['end_date']), htmlspecialchars($placeholder['time']));
+		htmlspecialchars($placeholder['MONTH(start_date)']), htmlspecialchars($placeholder['DAY(start_date)']),htmlspecialchars($placeholder['YEAR(start_date)']), htmlspecialchars($placeholder['time']));
 	}
 
 	
