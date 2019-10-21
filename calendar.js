@@ -54,15 +54,18 @@ function loginAjax(event) {
             console.log(data);
             console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`);
             if (data.success) {
+                document.getElementById("username").value = "";
+                document.getElementById("password").value = "";
                 document.getElementById('registeruser').style.display = 'none';
                 document.getElementById('loginuser').style.display = 'none';
-                document.getElementById('addevent').style.visibility = 'visible';
-                document.getElementById('logout').style.visibility = 'visible';
+                document.getElementById('addevent').style.display = 'block';
+                document.getElementById('logout').style.display = 'block';
                 geteventAjax();
 
 
             }
         });
+
 }
 
 
@@ -89,26 +92,26 @@ function eventAjax(event) {
     const time = document.getElementById("time").value;
     const note = document.getElementById("note").value;
 
-    const data = { 'title': title, 'startdate': startdate, 'enddate': enddate, 'time': time, 'note': note };
+    const data = { 'title': title, 'start_date': startdate, 'end_date': enddate, 'time': time, 'note': note };
 
     fetch("addEvents.php", {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
-    })
-        .then(response => response.json())
+    });
+
     //.then(data => console.log(data.success ? "You've have made an event!" : `Your event was not created :( ${data.message}`));
 }
 
 
 function geteventAjax(event) {
     const data = "";
-    fetch("getEvents.php", {
+    fetch("getevents.php", {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
     })
-        .then(response => response.json())
+        .then(response => console.log(response.json()))
         .then(data => console.log(data));
 }
 
@@ -122,8 +125,8 @@ function logoutAjax(event) {
     })
         .then(response => response.json())
         .then(data => console.log(data.success ? "You've been logged out!" : `You are still logged in ${data.message}`));
-    document.getElementById('registeruser').style.display = initial;
-    document.getElementById('loginuser').style.display = initial;
+    document.getElementById('registeruser').style.display = 'block';
+    document.getElementById('loginuser').style.display = 'block';
     document.getElementById('addevent').style.display = 'none';
     document.getElementById('logout').style.display = 'none';
 }

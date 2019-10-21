@@ -11,8 +11,8 @@ $json_str = file_get_contents('php://input');
 $json_obj = json_decode($json_str, true);
 //Variables can be accessed as such:
 $title = $json_obj['title'];
-$startdate = $json_obj['startdate'];
-$enddate = $json_obj['enddate'];
+$startdate = $json_obj['start_date'];
+$enddate = $json_obj['end_date'];
 $time = $json_obj['time'];
 $note = $json_obj['note'];
 //This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
