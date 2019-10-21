@@ -1,0 +1,136 @@
+        td,
+        th {
+            padding: 5px;
+            width: 150px;
+            border: 3px solid black;
+            font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+        th {
+            text-align: left;
+            background-color: rgba(63, 191, 63, 0.5);
+            color: black;
+            border: 3px solid black;
+        }
+
+        table {
+            border-collapse: collapse;
+            border: 3px solid black;
+
+        }
+
+
+        td {
+            height: 50px;
+            vertical-align: top;
+            background-color: rgba(63, 191, 63, 0.2);
+            color: black;
+        }
+
+        button{
+            background-color: rgba(63, 191, 63, 0.5);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            color: black;
+            padding: 14px 20px;
+            margin: 8px 0;
+            cursor: pointer;
+
+        }
+
+        button:hover {
+            background-color:rgba(63, 191, 63, 0.2);
+            color: black;
+        }
+
+        input  {
+            width: 200px;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid black;
+            box-sizing: border-box;
+            color: black;
+            font-size: 16px;
+        }
+
+        h1{
+               font-family: Arial, Helvetica, sans-serif;
+
+        }
+
+
+        
+
+        /* .calendarDays {
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto auto;
+            background-color: #2196F3;
+            padding: 10px;
+        }
+
+        .day {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .output {
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto auto;
+            background-color: #2196F3;
+            padding: 10px;
+            grid-template-rows: 150px, 150px, 150px, 150px, 150px, 150px, 150px;
+        }
+
+        .row {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 15px;
+            text-align: center;
+
+        } */
+
+        /* .row2 {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .row3 {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .row4 {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .row5 {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .row6 {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            font-size: 30px;
+            text-align: center;
+        }  */

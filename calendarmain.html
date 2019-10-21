@@ -23,102 +23,33 @@
     hosted on Google's Ajax CDN-->
     <!-- Note: you can download the javascript file from the link -->
 
+    <link rel="stylesheet" href="calendar.css" type="text/css">
+
 
     <!--MOST OF THE FOLLOWING BASED OFF OF FOLLOWING LINK: https://www.w3schools.com/css/tryit.asp?filename=trycss_grid-->
-    <style>
-        .calendarDays {
-            display: grid;
-            grid-template-columns: auto auto auto auto auto auto auto;
-            background-color: #2196F3;
-            padding: 10px;
-        }
 
-        .day {
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            font-size: 30px;
-            text-align: center;
-        }
 
-        .output {
-            display: grid;
-            grid-template-columns: auto auto auto auto auto auto auto;
-            background-color: #2196F3;
-            padding: 10px;
-            grid-template-rows: 150px, 150px, 150px, 150px, 150px, 150px, 150px;
-        }
+    <!--FIX THIS STYlING-->
 
-        .row {
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            font-size: 15px;
-            text-align: center;
-
-        }
-
-        /* .row2 {
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            font-size: 30px;
-            text-align: center;
-        }
-
-        .row3 {
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            font-size: 30px;
-            text-align: center;
-        }
-
-        .row4 {
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            font-size: 30px;
-            text-align: center;
-        }
-
-        .row5 {
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            font-size: 30px;
-            text-align: center;
-        }
-
-        .row6 {
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            font-size: 30px;
-            text-align: center;
-        }  */
-    </style>
 </head>
-
-<!--FIX THIS STYlING-->
 
 <body>
     <h1>Calendar</h1>
 
-    <div id="loginuser">
+    <div id="loginuser" class="login">
 
-        Username: <input type="text" id="username" placeholder="Username" />
-        Password: <input type="password" id="password" placeholder="Password" />
+        <input type="text" id="username" placeholder="Username" />
+        <input type="password" id="password" placeholder="Password" />
         <button id="login_btn">Log In!</button>
 
     </div>
 
-    <div id="registeruser">
+    <div id="registeruser" class="register">
 
-        First Name: <input type="text" id="first_name" placeholder="First" />
-        Last Name: <input type="text" id="last_name" placeholder="Last" />
-        Username: <input type="text" id="newusername" placeholder="Username" />
-        Password: <input type="password" id="newpassword" placeholder="Password" />
+        <input type="text" id="first_name" placeholder="First" />
+        <input type="text" id="last_name" placeholder="Last" />
+        <input type="text" id="newusername" placeholder="Username" />
+        <input type="password" id="newpassword" placeholder="Password" />
         <button id="register_btn">Create Account!</button>
 
     </div>
@@ -161,8 +92,8 @@
     </table>
 
     <div id="logout" style="visibility:hidden">
-            <button type="button" id="logout_btn"> Logout</button>
-        </div>
+        <button type="button" id="logout_btn"> Logout</button>
+    </div>
     <script src="./calendar.js"></script>
 </body>
 
