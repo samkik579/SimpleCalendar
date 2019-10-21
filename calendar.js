@@ -14,7 +14,7 @@ function onload() {
     console.log("calendar.js");
     document.getElementById("login_btn").addEventListener("click", loginAjax, false); // Bind the AJAX call to button click
     document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click
-    
+
     updateCalendar();
 }
 
@@ -32,17 +32,17 @@ function loginAjax(event) {
     fetch("login_ajax.php", {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: { 'content-type': 'application/json', 'Accept': 'application/json'}
+        headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
     })
-    .then(response => response.json())
-    .then(function(data) {
-        console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`);
-        if(data.success) {
-            document.getElementById('registeruser').style.display = 'none';
-            document.getElementById('username').value = "";
-            document.getElementById('password').value = "";
-        }
-    });
+        .then(response => response.json())
+        .then(function (data) {
+            console.log(data.success ? "You've been logged in!" : `You were not logged in ${data.message}`);
+            if (data.success) {
+                document.getElementById('registeruser').style.display = 'none';
+                document.getElementById('username').value = "";
+                document.getElementById('password').value = "";
+            }
+        });
 }
 
 

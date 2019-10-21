@@ -20,12 +20,13 @@
     I don't know how to associate the event with the grid for a month
 
     -->
+<!DOCTYPE html>
+<html lang="en">
 
 <?php 
-
 require 'database.php';
+session_start(); 
 
-$stmt = $mysqli->prepare("SELECT COUNT(*), id, password FROM users WHERE username=?");
 header("Content-Type: application/json"); // Since we are sending a JSON response here (not an HTML document), set the MIME Type to application/json
 
 //Because you are posting the data via fetch(), php has to retrieve it elsewhere.
@@ -34,42 +35,21 @@ $json_str = file_get_contents('php://input');
 $json_obj = json_decode($json_str, true);
 
 //Variables can be accessed as such:
-$username = $json_obj['username'];
-$password = $json_obj['password'];
+$event_title = $json_obj['event_title'];
+$event_startdate = $json_obj['event_startdate'];
+$event_enddate = $json_obj['event_enddate'];
+$event_time = $json_obj['event_time'];
+$event_note = $json_obj['event_note'];
 //This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
 
-//$mysqli->query(/* perform transfer */);
-// Use a prepared statement
-
-// Bind the parameter
-$stmt->bind_param('s', $username);
-
-//$user = $_POST['username'];
-$stmt->execute();
-// Bind the results
-$stmt->bind_result($cnt, $user_id, $pwd_hash);
-$stmt->fetch();
-   
-
-//$pwd_guess = $_POST['pass_word'];
-// Compare the submitted password to the actual password hash
-//echo "$pwd_guess $pwd_hash";
-//echo password_verify($pwd_guess, $pwd_hash);
-
-if($cnt == 1 && password_verify($username, $password) ){
-	session_start();
-	$_SESSION['username'] = $username;
-	$_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(32)); 
-
-	echo json_encode(array(
-		"success" => true
-	));
-	exit;
-}else{
-	echo json_encode(array(
-		"success" => false,
-		"message" => "Incorrect Username or Password"
-	));
+$stmt = $mysqli->prepare("insert into events (username, title, note, time, start_date, end_date) values (?, ?)");
+if(!$stmt){
+	printf("Query Prep Failed: %s\n", $mysqli->error);
 	exit;
 }
+
+$stmt->bind_param('ssssss', $_SESSION['username'], $event_title, $event_startdate, $event_enddate, $event_time, $event_note);
+
+$stmt->execute();
+
 ?>
