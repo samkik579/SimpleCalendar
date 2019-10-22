@@ -9,8 +9,10 @@
 	//This will store the data into an associative array
 	$json_obj = json_decode($json_str, true);
 
-	//Variables can be accessed as such:
 	$username = $_SESSION['username'];
+
+	if(isset($_SESSION)){
+		//Variables can be accessed as such:
 	// $title = $json_obj['title'];
 	// $note = $json_obj['note'];
 	// $month = $json_obj['month'];
@@ -22,34 +24,41 @@
 	// echo ($username);
 	//This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
 
-	$stmt = $mysqli->prepare("SELECT username, title, note, MONTH(start_date), DAY(start_date), YEAR(start_date), time from events where username =? order by start_date");
-	
-	
+		$stmt = $mysqli->prepare("SELECT username, title, note, MONTH(start_date), DAY(start_date), YEAR(start_date), time from events where username =? order by start_date");
+		
+		
 
-	$stmt->bind_param('s', $username);
+		$stmt->bind_param('s', $username);
 
-	// //$user = $_POST['username'];
-	$stmt->execute();
-	// // Bind the results
-	//$stmt->bind_result($cnt, $user_id, $pwd_hash);
-	$result = $stmt->get_result();
+		// //$user = $_POST['username'];
+		$stmt->execute();
+		// // Bind the results
+		//$stmt->bind_result($cnt, $user_id, $pwd_hash);
+		$result = $stmt->get_result();
 
-	$events_array = array();
+		$events_array = array();
 
-	while($placeholder = $result->fetch_assoc()){
+		while($placeholder = $result->fetch_assoc()){
 
-		$events_array[] = array("title" => htmlentities($placeholder['title']), "note" => htmlentities($placeholder['note']), 
-		"month" => htmlentities($placeholder['MONTH(start_date)']), "day" => htmlentities($placeholder['DAY(start_date)']),
-		"year" => htmlentities($placeholder['YEAR(start_date)']), "time" => htmlentities($placeholder['time']));
+			$events_array[] = array("title" => htmlentities($placeholder['title']), "note" => htmlentities($placeholder['note']), 
+			"month" => htmlentities($placeholder['MONTH(start_date)']), "day" => htmlentities($placeholder['DAY(start_date)']),
+			"year" => htmlentities($placeholder['YEAR(start_date)']), "time" => htmlentities($placeholder['time']), "success" => true);
+		}
+
+		
+		$stmt->close();
+
+		$eventgot = json_encode($events_array);
+
+		echo $eventgot;
 	}
-
+		
 	
-	$stmt->close();
-
-	$eventgot = json_encode($events_array);
-
-	echo $eventgot;
-
+	
+	else{
+		$empty = array();
+		echo json_encode(array("success" => false));
+	}
 
 	//array ("name" => htmlentities($placeholder[selecting from table]))
 ?>

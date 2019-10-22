@@ -28,6 +28,9 @@
 
     <!--MOST OF THE FOLLOWING BASED OFF OF FOLLOWING LINK: https://www.w3schools.com/css/tryit.asp?filename=trycss_grid-->
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
     <!--FIX THIS STYlING-->
 
@@ -65,12 +68,75 @@
 
     </div>
 
+    <div id="editevent" style="display:none">
+            Title: <input type="text" id="edittitle" />
+            Start Date: <input type="date" id="editstartdate" />
+            End Date: <input type="date" id="editenddate" />
+            Start Time: <input type="time" id="edittime" />
+            Note: <input type="text" id="editnote" />
+            <button id="editevent_btn"> Edit Event! </button>
+    
+        </div>
+
+    <div id="deleteevent" style="display:none">
+            Title: <input type="text" id="deletetitle" />
+            <button id="deleteevent_btn"> Delete Event! </button>
+        
+        </div>
+
     <div id="chooseCalendar">
         <h1> <span id="month"> Month </span> <span id="year"> Year </span></h1>
         <button type="button" id="prev_month_btn"> PreviousMonth</button>
         <button type="button" id="next_month_btn"> NextMonth</button>
     </div>
 
+    <!-- <div class="modal-content">
+        <div class = "modal-header" >
+            <button type="button" class="chose" data-dismiss="modal">&times;</button>
+        </div>
+        <div class = "modal-body" >
+            <div class = "form-group" >
+            <label> Event Title </label>
+            <input type = "text" id= "eventtitle" class="form-control">
+        </div>
+
+        <div class = "eventinfo" >
+            <span class ="close">&times;</span>
+            <p>Event Description</p> 
+        </div>
+    </div> -->
+<div class = "myModal" tabindex ="-1" role = "dialog" >
+        <button type="button" class = "btn btn-primary" data-toggle="modal" data-target="#myModal" > Open Modal</button>
+        
+        <div class = "modal fade" id = "myModal" role="dialog" aria-labelledby="myModelLabel" aria-hidden="true">
+            
+            <div class = "modal-dialog" role = document>
+                <div class = "modal-content" >
+                    <div class="modal-header" >
+                        <button type = "button" class= "close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"> &times;</span> 
+                        </button>
+                    </div>
+                    <div class = "modal-body" >
+                        <p>modal test</p> 
+                    </div>
+                    <div class = "modal-footer" >
+                        <button type = "button" class="btn btn-default" data-dismiss="modal" > Close </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+<script> 
+$(document).ready(function() {
+    $("#myBtn").click(function() {
+        $("#myModal").modal();
+    });
+});
+</script>
+
+    
 
 
 
@@ -89,16 +155,6 @@
         <tbody id="calendarBody">
             <div id = "events" style="display:none">
                 <input type="text" id="displayevent">
-            </div>
-
-            <button id="viewEvent_btn">Open Event</button>
-            <div id="viewEvent_div" class="event">
-                <div class="modal-content">
-                <span class="close">&times;</span>
-                <tbody id="eventBody">
-
-                </tbody>
-                </div>
             </div>
         </tbody>
     </table>
