@@ -190,8 +190,9 @@ function placeEvent(event){
             eventdiv.appendChild(document.createTextNode(t));
             eventdiv.appendChild(document.createTextNode(" " + cl));
             eventdiv.appendChild(document.createElement("br"));
-            
+
             console.log(eventdiv);
+
         }
 
 }
@@ -200,6 +201,9 @@ function placeEvent(event){
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
 function updateCalendar(event) {
+    document.getElementById("month").innerHTML = months[currentMonth.month];
+    document.getElementById("year").innerHTML = currentMonth.year;
+
     console.log("updating calendar");
     var weeks = currentMonth.getWeeks();
     calendar.innerHTML = '';
@@ -211,15 +215,55 @@ function updateCalendar(event) {
             const date = new Date(days[d]);
             day.appendChild(document.createTextNode(date.getDate()));
             row.appendChild(day);
-            //geteventAjax();
+
+           // for(i=0; i < 42; i++){
+                for(j = 0; j < event.length; j++){
+                    if((event[j].year == currentMonth.year) && (event[j].month == currentMonth.month+1) && (event[j].day == date.getDate())){
+                                console.log(currentMonth.month+1);
+                                console.log(event[j].month);
+                                console.log(date.getDate());
+                                day.innerHTML += event[j].title;
+                                day.innerHTML += " " + event[j].month + "/" + (event[j].day) + "/" + event[j].year;
+                            
+                        
+                    }
+                }
+           // }
+
+        /* for(i=0; i < 42; i++){
+            if(i==date.getDate() && currentMonth.month==1 && currentMonth.year==2019) {
+                day.innerHTML += i;
+            }
+            
         }
+
+        for(j=0; j < 42; j++){
+            for(i = 0; i < event.length; i++){
+                    let t = event[i].title; 
+                    let n = event[i].note;
+                    let dy = event[i].month + "/" + (event[i].day) + "/" + event[i].year;
+                    let cl = event[i].time;
+                if(event[i].day==date.getDate() && currentMonth.month==event[i].month+1 && currentMonth.year==event[i].year) {
+
+                    day.innerHTML += t;
+                    /* let eventdiv = document.createElement("div");
+                    eventdiv.appendChild(document.createTextNode(t));
+                    eventdiv.appendChild(document.createTextNode(" " + cl));
+                    eventdiv.appendChild(document.createElement("br")); */
+        
+                    //console.log(eventdiv);
+        
+        
+            
+        } 
+        
         calendar.appendChild(row);
 
-        placeEvent(event);
     }
 
-    document.getElementById("month").innerHTML = months[currentMonth.month];
-    document.getElementById("year").innerHTML = currentMonth.year;
+    //placeEvent(event);
+
+
 }
 
 
