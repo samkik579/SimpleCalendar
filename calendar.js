@@ -16,8 +16,11 @@ function onload() {
 
     document.getElementById("next_month_btn").addEventListener("click", function () {
         currentMonth = currentMonth.nextMonth();
+        console.log(sessionStorage.setItem('status', 'loggedIn'));
         console.log(currentMonth) // Previous month would be currentMonth.prevMonth()
-        updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+
+        console.log(isLogged());
+        geteventAjax(event); // Whenever the month is updated, we'll need to re-render the calendar in HTML
         //alert("The new month is " + months[currentMonth.month] + " " + currentMonth.year);
     }, false);
 
@@ -25,7 +28,7 @@ function onload() {
     document.getElementById("prev_month_btn").addEventListener("click", function () {
         currentMonth = currentMonth.prevMonth();
         console.log(currentMonth)// Previous month would be currentMonth.prevMonth()
-        updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+        geteventAjax(event); // Whenever the month is updated, we'll need to re-render the calendar in HTML
         // alert("The new month is " + months[currentMonth.month] + " " + currentMonth.year);
     }, false);
 
@@ -42,7 +45,7 @@ function loginAjax(event) {
     console.log(password);
 
     // Make a URL-encoded string for passing POST data:
-    const data = { 'username': username, 'password': password };
+    const data = { 'username': username, 'password': password};
 
     fetch("login_ajax.php", {
         method: 'POST',
@@ -70,6 +73,18 @@ function loginAjax(event) {
             sessionStorage.setItem('status', 'loggedIn');
         });
 
+}
+
+function isLogged() {
+    fetch("isloggedin.php", {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
+    })
+        .then(response => response.json())
+        .then(function (data) {
+            console.log(data.succes);
+            return (data.success);
+        });
 }
 
 
@@ -152,9 +167,6 @@ function geteventAjax(event) {
     } */
 //} 
 
-function isLogged(){
-
-}
 
 function logoutAjax(event) {
 
@@ -170,6 +182,8 @@ function logoutAjax(event) {
     document.getElementById('loginuser').style.display = 'block';
     document.getElementById('addevent').style.display = 'none';
     document.getElementById('logout').style.display = 'none';
+
+    updateCalendar([]);
 }
 
 function placeEvent(event){
@@ -218,12 +232,13 @@ function updateCalendar(event) {
 
            // for(i=0; i < 42; i++){
                 for(j = 0; j < event.length; j++){
-                    if((event[j].year == currentMonth.year) && (event[j].month == currentMonth.month+1) && (event[j].day == date.getDate())){
+                    if((event[j].year == currentMonth.year) && (event[j].month == (date.getMonth()+1)) && (event[j].day == date.getDate())){
                                 console.log(currentMonth.month+1);
                                 console.log(event[j].month);
                                 console.log(date.getDate());
-                                day.innerHTML += event[j].title;
-                                day.innerHTML += " " + event[j].month + "/" + (event[j].day) + "/" + event[j].year;
+                                day.appendChild(document.createTextNode(event[j].title));
+                                day.appendChild(document.createTextNode(event[j].time));
+                                //day.innerHTML += " " + event[j].month + "/" + (event[j].day) + "/" + event[j].year;
                             
                         
                     }

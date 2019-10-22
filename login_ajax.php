@@ -44,6 +44,7 @@
 	if($cnt == 1 && password_verify($password, $pwd_hash) ){
 	// if($cnt == 1 && password_verify($password, $pwd_hash)){
 		session_start();
+		$_SESSION['loggedin'] = true;
 		$_SESSION['username'] = $username;
 		$_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(32)); 
 
