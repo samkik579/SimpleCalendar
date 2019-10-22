@@ -59,4 +59,5 @@
 		));
 		exit;
 	}
+	$stmt->close();
 ?>

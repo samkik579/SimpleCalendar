@@ -23,4 +23,5 @@ if(!$stmt){
 }
 $stmt->bind_param('ssssss', $_SESSION['username'], $title, $note, $time, $startdate, $enddate);
 $stmt->execute(); 
+$stmt->close();
 ?>

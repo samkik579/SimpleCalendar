@@ -120,6 +120,7 @@ function eventAjax(event) {
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
     })
+    geteventAjax(event);
 
     //.then(data => console.log(data.success ? "You've have made an event!" : `Your event was not created :( ${data.message}`));
 }
@@ -169,23 +170,23 @@ function editEventAjax(event) {
     const enddate = document.getElementById("editenddate").value;
     const time = document.getElementById("edittime").value;
     const note = document.getElementById("editnote").value;
+    const id = document.getElementById("editid").value;
 
-    const data = { 'newtitle': title, 'newstart_date': startdate, 'newend_date': enddate, 'newtime': time, 'newnote': note };
+    const data = {'editid':id, 'newtitle': title, 'newstart_date': startdate, 'newend_date': enddate, 'newtime': time, 'newnote': note };
 
-    fetch("editEvents.php", {
+    fetch("editevents.php", {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
-    });
+    })
+    geteventAjax(event);
 
-    //.then(data => console.log(data.success ? "You've have made an event!" : `Your event was not created :( ${data.message}`));
 }
 
 function deleteEventAjax(event) {
-    const title = document.getElementById("deletetitle").value;
+    const id = document.getElementById("deleteid").value;
 
-    const data = { 'deletetitle': title};
-
+    const data = {'id': id};
     fetch("deleteevents.php", {
         method: 'POST',
         body: JSON.stringify(data),
@@ -193,6 +194,8 @@ function deleteEventAjax(event) {
     })
     .then(response => response.json())
     .catch(err => console.error(err));
+
+    geteventAjax(event);
 }
 
 function logoutAjax(event) {
@@ -209,6 +212,11 @@ function logoutAjax(event) {
     document.getElementById('loginuser').style.display = 'block';
     document.getElementById('addevent').style.display = 'none';
     document.getElementById('logout').style.display = 'none';
+    document.getElementById('editevent').style.display = 'none';
+    document.getElementById('deleteevent').style.display = 'none';
+    document.getElementById("username").value = "";
+    document.getElementById("password").value = "";
+
 
     updateCalendar([]);
 }
@@ -253,10 +261,10 @@ function updateCalendar(event) {
 
                                 day.appendChild(document.createElement("br"));
                                 //btn.appendChild(document.createTextNode("View Event"));
-                                let modaltitle = document.createTextNode(document.getElementsByClassName("modal-title").innerHTML = "  " + event[j].title);
+                                //let modaltitle = document.createTextNode(document.getElementsByClassName("modal-title").innerHTML = "  (#"  + event[j].id + ") " + event[j].title);
                                 //day.appendChild(document.createTextNode(date.getDate()));
-                                day.appendChild(modaltitle);
-                                //day.appendChild(document.createTextNode(event[j].title));
+                                //day.appendChild(modaltitle);
+                                day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
                                 day.appendChild(document.createTextNode(": " + event[j].time));
                                 //day.innerHTML += " " + event[j].month + "/" + (event[j].day) + "/" + event[j].year;
                             
