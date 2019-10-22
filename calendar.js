@@ -30,7 +30,7 @@ function onload() {
     }, false);
 
 
-    updateCalendar();
+    updateCalendar(event);
 }
 
 function loginAjax(event) {
@@ -64,6 +64,10 @@ function loginAjax(event) {
 
 
             }
+        });
+
+        jQuery(window).load(function(){
+            sessionStorage.setItem('status', 'loggedIn');
         });
 
 }
@@ -105,18 +109,34 @@ function eventAjax(event) {
 
 
 function geteventAjax(event) {
-    const data = currentMonth.month;
+    console.log("yesy");
+    const data = {'username': username};
+    //const data = currentMonth;
     fetch("getevents.php", {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
     })
-        .then(response => console.log(response.json()))
-        .then(data => console.log(data));
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            updateCalendar(data);
+        })
+        //.catch(error => console.error('Error:',error))
+        // for (i = 0; i < response.length; i++) {
+        //     if (response[i].month == currentMonth.month && response[i].day == d && response[i].year == currentMonth.year) {
+        //         console.log(response[i].title);
+        //         // let temp = document.createElement("newEvent");
+        //         // temp.appendChild(document.createTextNode(jsonData.array[i].title));
+        //         // appendChild(document.getElementById(jsonData.events[i].date).appendChild(temp);
+    
+        //     }
+    
 }
 
-function printEvents(event) {
-    let arr = geteventAjax();
+// function printEvents(event) {
+     //console.log(getEvents().response);
+    /*let arr = geteventAjax();
 
     for (i = 0; i < arr.length; i++) {
         if (arr[i].month == currentMonth.month && arr[i].day == d && arr[i].year == currentMonth.year) {
@@ -129,7 +149,11 @@ function printEvents(event) {
 
 
 
-    }
+    } */
+//} 
+
+function isLogged(){
+
 }
 
 function logoutAjax(event) {
@@ -148,10 +172,34 @@ function logoutAjax(event) {
     document.getElementById('logout').style.display = 'none';
 }
 
+function placeEvent(event){
+     /* console.log(event[0].title);
+    console.log(event[0].note);
+    console.log((event[0].month) + "/" + (event[0].day) + "/" + (event[0].year));
+    console.log(event[0].time); */
+
+    let m = currentMonth.month
+    let y = currentMonth.year
+    console.log(event.length + "");
+        for(i = 0; i < event.length; i++){
+            let t = event[i].title; 
+            let n = event[i].note;
+            let dy = event[i].month + "/" + (event[i].day) + "/" + event[i].year;
+            let cl = event[i].time;
+            let eventdiv = document.createElement("div");
+            eventdiv.appendChild(document.createTextNode(t));
+            eventdiv.appendChild(document.createTextNode(" " + cl));
+            eventdiv.appendChild(document.createElement("br"));
+            
+            console.log(eventdiv);
+        }
+
+}
+
 
 // This updateCalendar() function only alerts the dates in the currently specified month.  You need to write
 // it to modify the DOM (optionally using jQuery) to display the days and weeks in the current month.
-function updateCalendar() {
+function updateCalendar(event) {
     console.log("updating calendar");
     var weeks = currentMonth.getWeeks();
     calendar.innerHTML = '';
@@ -163,54 +211,12 @@ function updateCalendar() {
             const date = new Date(days[d]);
             day.appendChild(document.createTextNode(date.getDate()));
             row.appendChild(day);
-            printEvents();
+            //geteventAjax();
         }
         calendar.appendChild(row);
+
+        placeEvent(event);
     }
-
-    //let firstweek = weeks[0];
-
-    // let count = 0;
-    // let firstweek = weeks[0];
-    // let firstday = firstweek.getDates();
-    // let offset;
-
-    // //console.log(firstday);
-
-
-    // for (i = 0; i < 6; i++) {
-    //     if (firstday[i].getMonth() != currentMonth.month) {
-    //         count++;
-    //     }
-    //     else {
-    //         offset = count;
-    //         break;
-    //     }
-    // }
-
-    // let numcurrentmonth = numDays[currentMonth.month];
-
-    // //console.log(numcurrentmonth);
-    // for (let i = 1; i < offset; i++) {
-    //     $('#' + i).html("");
-    // }
-
-    // for (let i = offset; i <= numcurrentmonth + offset; ++i) {
-
-    //     let diff = i - offset;
-
-    //     if (i - offset <= 0) {
-    //         $('#' + i).html("");
-    //     }
-    //     else {
-    //         $('#' + i).html(i - offset);
-    //     }
-
-    // }
-
-    // for (let i = numcurrentmonth + offset + 1; i < 42 + offset; i++) {
-    //     $('#' + i).html("");
-    // }
 
     document.getElementById("month").innerHTML = months[currentMonth.month];
     document.getElementById("year").innerHTML = currentMonth.year;

@@ -9,12 +9,18 @@
 
 	//Variables can be accessed as such:
 	$username = $_SESSION['username'];
+	// $title = $json_obj['title'];
+	// $note = $json_obj['note'];
+	// $month = $json_obj['month'];
+	// $days = $json_obj['days'];
+	// $year = $json_obj['year'];
+	// $time = $json_obj['time'];
     
 	
 	// echo ($username);
 	//This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
 
-	$stmt = $mysqli->prepare("SELECT username, MONTH(start_date), DAY(start_date), YEAR(start_date), time, note from events where username =? order by start_date, time");
+	$stmt = $mysqli->prepare("SELECT username, title, note, MONTH(start_date), DAY(start_date), YEAR(start_date), time from events where username =? order by start_date");
 	
 	
 
@@ -29,8 +35,10 @@
 	$events_array = array();
 
 	while($placeholder = $result->fetch_assoc()){
-		array_push($events_array, htmlspecialchars($placeholder['title']), htmlspecialchars($placeholder['note']), 
-		htmlspecialchars($placeholder['MONTH(start_date)']), htmlspecialchars($placeholder['DAY(start_date)']),htmlspecialchars($placeholder['YEAR(start_date)']), htmlspecialchars($placeholder['time']));
+
+		$events_array[] = array("title" => htmlentities($placeholder['title']), "note" => htmlentities($placeholder['note']), 
+		"month" => htmlentities($placeholder['MONTH(start_date)']), "day" => htmlentities($placeholder['DAY(start_date)']),
+		"year" => htmlentities($placeholder['YEAR(start_date)']), "time" => htmlentities($placeholder['time']));
 	}
 
 	
@@ -39,4 +47,7 @@
 	$eventgot = json_encode($events_array);
 
 	echo $eventgot;
+
+
+	//array ("name" => htmlentities($placeholder[selecting from table]))
 ?>
