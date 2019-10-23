@@ -11,23 +11,7 @@ const numDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 function onload() {
     updateEmptyCalendar();
 
-    fetch("isloggedin.php", {
-        method: 'POST',
-        headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success == true && data.username != null){
-                document.getElementById('registeruser').style.display = 'none';
-                document.getElementById('loginuser').style.display = 'none';
-                document.getElementById('addevent').style.display = 'block';
-                document.getElementById('logout').style.display = 'block';
-                document.getElementById('editevent').style.display = 'block';
-                document.getElementById('deleteevent').style.display = 'block';
-                geteventAjax(event);
 
-            };
-        });
         document.getElementById("login_btn").addEventListener("click", loginAjax, false); // Bind the AJAX call to button click
         document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click
         document.getElementById("event_btn").addEventListener("click", eventAjax, false);
@@ -132,7 +116,8 @@ function registerAjax(event) {
         headers: { 'content-type': 'application/json' }
     })
         .then(response => response.json())
-        .then(data => console.log(data.success ? "You've been Registered!" : `You were not a user ${data.message}`));
+        .then(data => console.log(data.success ? "You've been Registered! Please Log in now!" : `You were not a user ${data.message}`));
+
 }
 
 function eventAjax(event) {
@@ -310,26 +295,26 @@ function updateCalendar(event) {
                         if(document.getElementById("importanthome").checked == true && event[j].hometag == true) { 
                                 console.log("in second if");
                                 day.appendChild(document.createElement("br"));
-                                day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
+                                day.appendChild(document.createTextNode("  (#"  + event[j].id + " - H) " + event[j].title));
                                 day.appendChild(document.createTextNode(": " + event[j].time));
                         }
                         else if(document.getElementById("importantschool").checked == true && event[j].schooltag == true) { 
                             console.log("in third if");
                             day.appendChild(document.createElement("br"));
-                            day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
+                            day.appendChild(document.createTextNode("  (#"  + event[j].id + " - S) " + event[j].title));
                             day.appendChild(document.createTextNode(": " + event[j].time));
                         }
 
                         else if(document.getElementById("importantwork").checked == true && event[j].worktag == true) { 
                             console.log("in fourth if");
                             day.appendChild(document.createElement("br"));
-                            day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
+                            day.appendChild(document.createTextNode("  (#"  + event[j].id + " - W) " + event[j].title));
                             day.appendChild(document.createTextNode(": " + event[j].time));
                         }
                         else if(document.getElementById("importantfun").checked == true && event[j].funtag == true) { 
                             console.log("in fifth if");
                             day.appendChild(document.createElement("br"));
-                            day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
+                            day.appendChild(document.createTextNode("  (#"  + event[j].id + " - F) " + event[j].title));
                             day.appendChild(document.createTextNode(": " + event[j].time));
                         }
 
