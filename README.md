@@ -6,7 +6,7 @@ Link: http://ec2-52-15-57-10.us-east-2.compute.amazonaws.com/~s.kikkeri/calendar
 
 Username(Password): test(test), sam(kik), testy(testy)
 
-Things to note: Our fields for when a new user registers are not clearing, as everything we tried to do to get it to clear casued the calendar not to print. However, YOU CAN REGISTER NEW USERS. The command line will let you know that user was added and you can immediately log in. 
+Things to note: Our fields for when a new user registers and create events are not clearing, as everything we tried to do to get it to clear casued the calendar not to print. However, YOU CAN REGISTER NEW USERS. The command line will let you know that user was added and you can immediately log in. New events are also being added, you just need to hit the previous or next month button. (sorry, everything we tried was breaking our code)
 
 Creative Portion: 
     
