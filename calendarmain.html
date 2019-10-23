@@ -57,14 +57,14 @@
 
     </div>
 
-    <div id="addevent" style="display:none">
+    <div id="addevent" style="display:none" class="addevent">
 
-        Title: <input type="text" id="title" placeholder="Title" />
+        Title: <input type="text" id="title" placeholder="Title" /> 
         Start Date: <input type="date" id="startdate"  />
         End Date: <input type="date" id="enddate" />
         Start Time: <input type="time" id="time"  />
         Note: <input type="text" id="note" placeholder="Note"/>
-        Share event (Note you cannot share a tagged event): <input type="text" id="shared_user" placeholder="Share event with user" />
+        <br>Share event: <input type="text" id="shared_user" placeholder="Name of user" />
         Work: <input type="checkbox" id="worktag"/> 
         Home: <input type="checkbox" id="hometag"/>
         School: <input type="checkbox" id="schooltag"/>
@@ -73,7 +73,7 @@
         <button id="event_btn"> Create Event! </button>
     </div>
 
-    <div id="editevent" style="display:none">
+    <div id="editevent" style="display:none" class="editevent">
             #ID: <input type="text" id="editid" placeholder="#ID"/>
             Title: <input type="text" id="edittitle" placeholder="Title"/>
             Start Date: <input type="date" id="editstartdate"   />
@@ -85,7 +85,7 @@
     
         </div>
 
-    <div id="deleteevent" style="display:none">
+    <div id="deleteevent" style="display:none" class="deleteevent">
             Title: <input type="text" id="deleteid" placeholder="#id"/>
             <button id="deleteevent_btn"> Delete Event! </button>
         
