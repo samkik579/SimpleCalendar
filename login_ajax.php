@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <?php
 	// login_ajax.php
 	ini_set("session.cookie_httponly", 1);
@@ -66,3 +69,5 @@
 	}
 	$stmt->close();
 ?>
+
+</html>

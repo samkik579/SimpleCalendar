@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <?php
     ini_set("session.cookie_httponly", 1);
     session_start();
@@ -7,3 +10,5 @@
 		"success" => true
 	));
 ?>
+
+</html>

@@ -44,3 +44,5 @@ $stmt->execute();
 
 $stmt->close();
 ?>
+
+</html>
