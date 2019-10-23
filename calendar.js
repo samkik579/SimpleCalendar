@@ -127,10 +127,13 @@ function eventAjax(event) {
     const time = document.getElementById("time").value;
     const note = document.getElementById("note").value;
     let home = document.getElementById("hometag").checked;
-    let shareduser = document.getElementById("shareduser").value;
+    let shared_user = document.getElementById("shared_user").value;
     let work = document.getElementById('worktag').checked;
     let school = document.getElementById('schooltag').checked;
     let fun = document.getElementById('funtag').checked;
+
+    console.log(shared_user);
+    console.log(document.getElementById("shared_user").value);
 
     const data = { 
         'title': title, 
@@ -142,15 +145,25 @@ function eventAjax(event) {
         'home': home,
         'school': school,
         'fun': fun,
-        'shareduser' : shareduser
+        'shared_user': shared_user
     
     };
 
     fetch("addEvents.php", {
         method: 'POST',
         body: JSON.stringify(data),
-        headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
+        headers: {'content-type': 'application/json', 'Accept': 'application/json' }
     })
+    document.getElementById("title").value = "";
+    document.getElementById("startdate").value = "";
+    document.getElementById("enddate").value = "";
+    document.getElementById("time").value = "";
+    document.getElementById("note").value = "";
+    document.getElementById("hometag").checked = false;
+    //document.getElementById("shareduser").value = "";
+    document.getElementById('worktag').checked = false;
+    document.getElementById('schooltag').checked = false;
+    document.getElementById('funtag').checked = false;
     geteventAjax(event);
 
     //.then(data => console.log(data.success ? "You've have made an event!" : `Your event was not created :( ${data.message}`));
@@ -161,7 +174,7 @@ function eventAjax(event) {
 function geteventAjax(event) {
     console.log("yesy");
     const data = {'username': username};
-    console.log(document.getElementById("username").value);
+    //console.log(document.getElementById("username").value);
     if (document.getElementById("username").value == ""){
         updateEmptyCalendar();
         return;
@@ -202,20 +215,23 @@ function editEventAjax(event) {
     const time = document.getElementById("edittime").value;
     const note = document.getElementById("editnote").value;
     const id = document.getElementById("editid").value;
-    let home = document.getElementById("hometag").checked;
-    let work = document.getElementById('worktag').checked;
-    let school = document.getElementById('schooltag').checked;
-    let fun = document.getElementById('funtag').checked;
 
 
     const data = {'editid':id, 'newtitle': title, 'newstart_date': startdate, 'newend_date': enddate, 'newtime': time, 
-    'newnote': note, 'work': work, 'home': home, 'school': school, 'fun': fun};
+    'newnote': note};
 
     fetch("editevents.php", {
         method: 'POST',
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
     })
+
+    document.getElementById("edittitle").value = "";
+    document.getElementById("editstartdate").value = "";
+    document.getElementById("editenddate").value = "";
+    document.getElementById("edittime").value = "";
+    document.getElementById("editnote").value = "";
+    document.getElementById("editid").value = "";
     geteventAjax(event);
 
 }

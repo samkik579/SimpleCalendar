@@ -1,7 +1,7 @@
 
 
 <?php 
-ini_set("session.cookie_httponly", 1);
+
 require 'database.php';
 session_start(); 
 
@@ -20,14 +20,14 @@ $enddate = $json_obj['end_date'];
 $time = $json_obj['time'];
 $note = $json_obj['note'];
 $work = $json_obj['work'];
-$shareduser = $json_obj['shareduser'];
+$shared_user = $json_obj['shared_user'];
 $home = $json_obj['home'];
 $school = $json_obj['school'];
 $fun = $json_obj['fun'];
 //This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
 $stmt = $mysqli->prepare("insert into events (username, title, note, time, start_date, end_date, isWork, isHome, isSchool, isFun) values (?, ?, ?, ?, ?, ?,?, ?, ?, ?)");
 if(!$stmt){
-	printf("Query Prep Failed: %s\n", $mysqli->error);
+	echo json_encode(array("success => false"));
 	exit;
 }
 
@@ -38,13 +38,16 @@ $stmt->close();
 
 // insert into shared user 
 
-$sharedinsert = $msqli->prepare("insert into events (username, title, note, time, start_date, end_date, isWork, isHome, isSchool, isFun) values (?, ?, ?, ?, ?, ?,?, ?, ?, ?");
+$sharedinsert = $mysqli->prepare("insert into events (username, title, note, time, start_date, end_date, isWork, isHome, isSchool, isFun) values (?, ?, ?, ?, ?, ?,?, ?, ?, ?)");
 if(!$sharedinsert){
-	printf("Query Prep Failed: %s\n", $mysqli->error);
+	echo json_encode(array("success => false"));
 	exit;
 }
-$secondinsert->bind_param('ssssssiiii', $shareduser, $title, $note, $time, $startdate, $enddate,  $work, $home, $school, $fun);
-$secondinsert->execute(); 
-$secondinsert->close();
+$sharedinsert->bind_param('ssssssiiii', $shared_user, $title, $note, $time, $startdate, $enddate, $work, $home, $school, $fun);
+$sharedinsert->execute(); 
+$sharedinsert->close();
+
+echo json_encode(array("success => false"));
+	exit;
 
 ?>

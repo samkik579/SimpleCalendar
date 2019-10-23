@@ -7,9 +7,7 @@ session_start();
 
 $destination_username = $_POST['dest'];
 $amount = $_POST['amount'];
-if(!hash_equals($_SESSION['token'], $_POST['token'])){
-	die("Request forgery detected");
-}
+
 $mysqli->query(/* perform transfer */);
 
 
@@ -25,18 +23,14 @@ $newstartdate = $json_obj['newstart_date'];
 $newenddate = $json_obj['newend_date'];
 $newtime = $json_obj['newtime'];
 $newnote = $json_obj['newnote'];
-$work = $json_obj['work'];
-$home = $json_obj['home'];
-$school = $json_obj['school'];
-$fun = $json_obj['fun'];
 
 //This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
-$stmt = $mysqli->prepare("UPDATE events SET username=?, title=?, note=?, start_date=?, end_date=?, time=?, isWork=?, isHome=?, isSchool=?, isFun=? WHERE id=?");
+$stmt = $mysqli->prepare("UPDATE events SET username=?, title=?, note=?, start_date=?, end_date=?, time=? WHERE id=?");
 if(!$stmt){
 	printf("Query Prep Failed: %s\n", $mysqli->error);
 	exit;
 }
-$stmt->bind_param('ssssssiiiii', $_SESSION['username'], $newtitle, $newnote, $newstartdate, $newenddate, $newtime, $work, $home, $school, $fun, $id);
+$stmt->bind_param('ssssssi', $_SESSION['username'], $newtitle, $newnote, $newstartdate, $newenddate, $newtime, $id);
 $stmt->execute(); 
 
 
