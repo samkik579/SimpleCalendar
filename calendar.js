@@ -160,7 +160,7 @@ function eventAjax(event) {
     document.getElementById("time").value = "";
     document.getElementById("note").value = "";
     document.getElementById("hometag").checked = false;
-    //document.getElementById("shareduser").value = "";
+    document.getElementById("shareduser").value = "";
     document.getElementById('worktag').checked = false;
     document.getElementById('schooltag').checked = false;
     document.getElementById('funtag').checked = false;
@@ -249,6 +249,7 @@ function deleteEventAjax(event) {
     .catch(err => console.error(err));
 
     geteventAjax(event);
+    document.getElementById("deleteid").value = "";
 }
 
 function logoutAjax(event) {
