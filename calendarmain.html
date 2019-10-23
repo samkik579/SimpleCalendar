@@ -64,12 +64,11 @@
         End Date: <input type="date" id="enddate" placeholder="default text"/>
         Start Time: <input type="time" id="time" placeholder="default text" />
         Note: <input type="text" id="note" placeholder="Note"/>
-        Priority (1-4): <input type="text" id="priority" placeholder="priority" />
+        Priority (1-4): <input type="text" id="priority" placeholder="priority" /> 
+        Share event: <input type="text" id="shareduser" placeholder="Share event with user" />
+        Focused: <input type = "checkbox" id="focused" checked/> 
 
         <button id="event_btn"> Create Event! </button>
-
-        
-
     </div>
 
     <div id="editevent" style="display:none">
@@ -90,6 +89,14 @@
             <button id="deleteevent_btn"> Delete Event! </button>
         
         </div>
+
+    <div id="prioritytags" style="display:none"> 
+        Work: <input type="checkbox" id="worktag"/> 
+        Home: <input type="checkbox" id="hometag"/>
+        School: <input type="checkbox" id="schooltag"/>
+        Fun: <input type="checkbox" id="funtag"/>
+    
+    </div> 
 
     <div id="chooseCalendar">
         <h1> <span id="month"> Month </span> <span id="year"> Year </span></h1>

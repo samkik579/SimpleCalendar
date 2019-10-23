@@ -4,7 +4,7 @@ const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", 
 
 // For our purposes, we can keep the current month in a variable in the global scope
 let currentMonth = new Month(2019, 9); // October 2019
-
+let important = false;
 let calendar = document.getElementById("calendarBody");
 
 const numDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -34,6 +34,11 @@ function onload() {
         document.getElementById("logout_btn").addEventListener("click", logoutAjax, false);
         document.getElementById("deleteevent_btn").addEventListener("click", deleteEventAjax, false);
         document.getElementById("editevent_btn").addEventListener("click", editEventAjax, false);
+        document.getElementById("hometag").addEventListener("change", importantEvent, false);
+        document.getElementById("worktag").addEventListener("change", importantEvent, false);
+        document.getElementById("schooltag").addEventListener("change", importantEvent, false);
+        document.getElementById("funtag").addEventListener("change", importantEvent, false);
+
 
     document.getElementById("next_month_btn").addEventListener("click", function () {
         currentMonth = currentMonth.nextMonth();
@@ -53,6 +58,11 @@ function onload() {
 
 
     //updateCalendar(event);
+}
+
+function importantEvent() {
+    geteventAjax();
+    console.log("View changed");
 }
 
 function loginAjax(event) {
@@ -82,6 +92,7 @@ function loginAjax(event) {
                 document.getElementById('logout').style.display = 'block';
                 document.getElementById('editevent').style.display = 'block';
                 document.getElementById('deleteevent').style.display = 'block';
+                document.getElementById('prioritytags').style.display = 'block';
                 geteventAjax(event);
 
 
@@ -129,11 +140,23 @@ function eventAjax(event) {
     const enddate = document.getElementById("enddate").value;
     const time = document.getElementById("time").value;
     const note = document.getElementById("note").value;
-    let tag = document.getElementById("priority").value;
+    let home = document.getElementById("hometag").checked;
+    let shareduser = document.getElementById("shareduser").value;
+    let work = document.getElementById('worktag').checked;
+    let school = document.getElementById('schooltag').checked;
+    let fun = document.getElementById('funtag').checked;
 
-
-
-    const data = { 'title': title, 'start_date': startdate, 'end_date': enddate, 'time': time, 'note': note, 'tag' : tag};
+    const data = { 
+        'title': title, 
+        'start_date': startdate, 
+        'end_date': enddate, 
+        'time': time, 
+        'note': note, 
+        'tag' : tag,
+        'shareduser' : shareduser,
+        'focused' : focused
+    
+    };
 
     fetch("addEvents.php", {
         method: 'POST',
@@ -235,6 +258,7 @@ function logoutAjax(event) {
     document.getElementById('logout').style.display = 'none';
     document.getElementById('editevent').style.display = 'none';
     document.getElementById('deleteevent').style.display = 'none';
+    document.getElementById('prioritytags').style.display = 'none';
     document.getElementById("username").value = "";
     document.getElementById("password").value = "";
 
@@ -273,21 +297,22 @@ function updateCalendar(event) {
 
 
                 for(j = 0; j < event.length; j++){
-                    if((event[j].year == currentMonth.year) && (event[j].month == (date.getMonth()+1)) && (event[j].day == date.getDate())){ 
+                    if(document.getElementById("important").checked == true) {
+                        if((event[j].year == currentMonth.year) && (event[j].month == (date.getMonth()+1)) && (event[j].day == date.getDate()) && event[j].focused == true){ 
                                 day.appendChild(document.createElement("br"));
-                                //btn.appendChild(document.createTextNode("View Event"));
-                                //let modaltitle = document.createTextNode(document.getElementsByClassName("modal-title").innerHTML = "  (#"  + event[j].id + ") " + event[j].title);
-                                //day.appendChild(document.createTextNode(date.getDate()));
-                                //day.appendChild(modaltitle);
                                 day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
                                 day.appendChild(document.createTextNode(": " + event[j].time));
-                                //day.innerHTML += " " + event[j].month + "/" + (event[j].day) + "/" + event[j].year;
-                    
-                            
-                     
+                        }
                     }
-                }
-          
+                    else {
+                        if((event[j].year == currentMonth.year) && (event[j].month == (date.getMonth()+1)) && (event[j].day == date.getDate() && (event[j].focused == true || event[j].focused == false))){ 
+                            day.appendChild(document.createElement("br"));
+                            day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
+                            day.appendChild(document.createTextNode(": " + event[j].time));
+                            //day.innerHTML += " " + event[j].month + "/" + (event[j].day) + "/" + event[j].year;
+                         }   
+                    }
+                }  
         } 
         
         calendar.appendChild(row);

@@ -24,7 +24,7 @@
 	// echo ($username);
 	//This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
 
-		$stmt = $mysqli->prepare("SELECT id, username, title, note, MONTH(start_date), DAY(start_date), YEAR(start_date), time, eventtag from events where username =? order by start_date");
+		$stmt = $mysqli->prepare("SELECT id, username, title, note, MONTH(start_date), DAY(start_date), YEAR(start_date), time, isWork, isHome, isSchool, isFun from events where username =? order by start_date");
 		
 		
 
@@ -42,7 +42,9 @@
 
 			$events_array[] = array("id" => htmlentities($placeholder['id']), "title" => htmlentities($placeholder['title']), "note" => htmlentities($placeholder['note']), 
 			"month" => htmlentities($placeholder['MONTH(start_date)']), "day" => htmlentities($placeholder['DAY(start_date)']),
-			"year" => htmlentities($placeholder['YEAR(start_date)']), "time" => htmlentities($placeholder['time']), "tag" => htmlentities($placeholder['eventtag']), "success" => true);
+			"year" => htmlentities($placeholder['YEAR(start_date)']), "time" => htmlentities($placeholder['time']), "worktag" => htmlentities($placeholder['isWork']), 
+			"hometag" => htmlentities($placeholder['isHome']), "schooltag" => htmlentities($placeholder['isSchool']), 
+			"funtag" => htmlentities($placeholder['isFun']), "success" => true);
 		}
 
 		

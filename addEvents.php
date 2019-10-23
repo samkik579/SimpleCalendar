@@ -16,13 +16,29 @@ $enddate = $json_obj['end_date'];
 $time = $json_obj['time'];
 $note = $json_obj['note'];
 $tag = $json_obj['tag'];
+$shareduser = $json_obj['shareduser'];
+$focused = $json_obj['focused'];
 //This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
-$stmt = $mysqli->prepare("insert into events (username, title, note, time, start_date, end_date, eventtag) values (?, ?, ?, ?, ?, ?,?)");
+$stmt = $mysqli->prepare("insert into events (username, title, note, time, start_date, end_date, eventtag, isfocused) values (?, ?, ?, ?, ?, ?,?, ?)");
 if(!$stmt){
 	printf("Query Prep Failed: %s\n", $mysqli->error);
 	exit;
 }
-$stmt->bind_param('sssssss', $_SESSION['username'], $title, $note, $time, $startdate, $enddate, $tag);
+
+// insert into logged in user 
+$stmt->bind_param('sssssssi', $_SESSION['username'], $title, $note, $time, $startdate, $enddate, $tag, $focused);
 $stmt->execute(); 
 $stmt->close();
+
+// insert into shared user 
+
+$sharedinsert = $msqli->prepare("insert into events (username, title, note, time, start_date, end_date, eventtag, isfocused) values (?, ?, ?, ?, ?, ?,?, ?)");
+if(!$sharedinsert){
+	printf("Query Prep Failed: %s\n", $mysqli->error);
+	exit;
+}
+$secondinsert->bind_param('sssssssi', $shareduser, $title, $note, $time, $startdate, $enddate, $tag, $focused);
+$secondinsert->execute(); 
+$secondinsert->close();
+
 ?>
