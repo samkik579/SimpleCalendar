@@ -154,6 +154,8 @@ function eventAjax(event) {
         body: JSON.stringify(data),
         headers: {'content-type': 'application/json', 'Accept': 'application/json' }
     })
+
+    
     document.getElementById("title").value = "";
     document.getElementById("startdate").value = "";
     document.getElementById("enddate").value = "";
@@ -165,7 +167,6 @@ function eventAjax(event) {
     document.getElementById('schooltag').checked = false;
     document.getElementById('funtag').checked = false;
     geteventAjax(event);
-
     //.then(data => console.log(data.success ? "You've have made an event!" : `Your event was not created :( ${data.message}`));
 }
 
@@ -225,14 +226,13 @@ function editEventAjax(event) {
         body: JSON.stringify(data),
         headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
     })
-
+    geteventAjax(event);
     document.getElementById("edittitle").value = "";
     document.getElementById("editstartdate").value = "";
     document.getElementById("editenddate").value = "";
     document.getElementById("edittime").value = "";
     document.getElementById("editnote").value = "";
     document.getElementById("editid").value = "";
-    geteventAjax(event);
 
 }
 
