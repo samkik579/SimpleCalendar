@@ -4,10 +4,11 @@ require 'database.php';
 session_start();
 
 $islogged = $_SESSION['loggedin'];
+$username = $_SESSION['username'];
 
-if($islogged == "true"){
+if(isset($_SESSION['username'])){
     echo json_encode(array(
-        "success" => true));
+        "success" => true, "username" => $username));
 }
 
 else{

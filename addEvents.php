@@ -15,13 +15,14 @@ $startdate = $json_obj['start_date'];
 $enddate = $json_obj['end_date'];
 $time = $json_obj['time'];
 $note = $json_obj['note'];
+$tag = $json_obj['tag'];
 //This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
-$stmt = $mysqli->prepare("insert into events (username, title, note, time, start_date, end_date) values (?, ?, ?, ?, ?, ?)");
+$stmt = $mysqli->prepare("insert into events (username, title, note, time, start_date, end_date, eventtag) values (?, ?, ?, ?, ?, ?,?)");
 if(!$stmt){
 	printf("Query Prep Failed: %s\n", $mysqli->error);
 	exit;
 }
-$stmt->bind_param('ssssss', $_SESSION['username'], $title, $note, $time, $startdate, $enddate);
+$stmt->bind_param('sssssss', $_SESSION['username'], $title, $note, $time, $startdate, $enddate, $tag);
 $stmt->execute(); 
 $stmt->close();
 ?>

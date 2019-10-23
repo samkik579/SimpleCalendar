@@ -10,13 +10,30 @@ let calendar = document.getElementById("calendarBody");
 const numDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 function onload() {
     updateEmptyCalendar();
-    document.getElementById("login_btn").addEventListener("click", loginAjax, false); // Bind the AJAX call to button click
-    document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click
-    document.getElementById("event_btn").addEventListener("click", eventAjax, false);
-    document.getElementById("logout_btn").addEventListener("click", logoutAjax, false);
-    document.getElementById("deleteevent_btn").addEventListener("click", deleteEventAjax, false);
-    document.getElementById("editevent_btn").addEventListener("click", editEventAjax, false);
 
+    fetch("isloggedin.php", {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success == true && data.username != null){
+                document.getElementById('registeruser').style.display = 'none';
+                document.getElementById('loginuser').style.display = 'none';
+                document.getElementById('addevent').style.display = 'block';
+                document.getElementById('logout').style.display = 'block';
+                document.getElementById('editevent').style.display = 'block';
+                document.getElementById('deleteevent').style.display = 'block';
+                geteventAjax(event);
+
+            };
+        });
+        document.getElementById("login_btn").addEventListener("click", loginAjax, false); // Bind the AJAX call to button click
+        document.getElementById("register_btn").addEventListener("click", registerAjax, false); // Bind the AJAX call to button click
+        document.getElementById("event_btn").addEventListener("click", eventAjax, false);
+        document.getElementById("logout_btn").addEventListener("click", logoutAjax, false);
+        document.getElementById("deleteevent_btn").addEventListener("click", deleteEventAjax, false);
+        document.getElementById("editevent_btn").addEventListener("click", editEventAjax, false);
 
     document.getElementById("next_month_btn").addEventListener("click", function () {
         currentMonth = currentMonth.nextMonth();
@@ -77,7 +94,7 @@ function loginAjax(event) {
 
 }
 
-function isLogged() {
+/* function isLogged() {
     fetch("isloggedin.php", {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'Accept': 'application/json' }
@@ -87,7 +104,7 @@ function isLogged() {
             console.log(data);
             return (data.success);
         });
-}
+} */
 
 
 function registerAjax(event) {
@@ -112,8 +129,11 @@ function eventAjax(event) {
     const enddate = document.getElementById("enddate").value;
     const time = document.getElementById("time").value;
     const note = document.getElementById("note").value;
+    let tag = document.getElementById("priority").value;
 
-    const data = { 'title': title, 'start_date': startdate, 'end_date': enddate, 'time': time, 'note': note };
+
+
+    const data = { 'title': title, 'start_date': startdate, 'end_date': enddate, 'time': time, 'note': note, 'tag' : tag};
 
     fetch("addEvents.php", {
         method: 'POST',
@@ -171,8 +191,9 @@ function editEventAjax(event) {
     const time = document.getElementById("edittime").value;
     const note = document.getElementById("editnote").value;
     const id = document.getElementById("editid").value;
+    const tag = document.getElementById("edittag").value;
 
-    const data = {'editid':id, 'newtitle': title, 'newstart_date': startdate, 'newend_date': enddate, 'newtime': time, 'newnote': note };
+    const data = {'editid':id, 'newtitle': title, 'newstart_date': startdate, 'newend_date': enddate, 'newtime': time, 'newnote': note, 'newtag': tag };
 
     fetch("editevents.php", {
         method: 'POST',
@@ -221,18 +242,13 @@ function logoutAjax(event) {
     updateCalendar([]);
 }
 
-
-// function updateModal() {
-//     $('.modalShow').clock(function(event) {
-//         event.preventDefault();
-//         let e = $(this);
-//         let title = event[j].title;
-//         let body = event[j].note; 
-//         $("#myModal").modal("show");
-//         $('#modal-title').html(title);
-//         $('#modal-body').html(body);
-//     });
+// function getRadioValue() {
+//     for(i=0; i<document.getElementByName('tag').length; i++) {
+//         if(document.getElementsByName)
+//     };
 // }
+
+
 
 
 
@@ -258,7 +274,6 @@ function updateCalendar(event) {
 
                 for(j = 0; j < event.length; j++){
                     if((event[j].year == currentMonth.year) && (event[j].month == (date.getMonth()+1)) && (event[j].day == date.getDate())){ 
-
                                 day.appendChild(document.createElement("br"));
                                 //btn.appendChild(document.createTextNode("View Event"));
                                 //let modaltitle = document.createTextNode(document.getElementsByClassName("modal-title").innerHTML = "  (#"  + event[j].id + ") " + event[j].title);
@@ -267,8 +282,9 @@ function updateCalendar(event) {
                                 day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
                                 day.appendChild(document.createTextNode(": " + event[j].time));
                                 //day.innerHTML += " " + event[j].month + "/" + (event[j].day) + "/" + event[j].year;
+                    
                             
-                        
+                     
                     }
                 }
           
@@ -278,10 +294,9 @@ function updateCalendar(event) {
 
     }
 
-
-
-
 }
+
+
 
 function updateEmptyCalendar() {
     document.getElementById("month").innerHTML = months[currentMonth.month];
