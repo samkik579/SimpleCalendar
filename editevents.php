@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+
 
 <?php 
 ini_set("session.cookie_httponly", 1);
@@ -45,4 +44,3 @@ $stmt->execute();
 $stmt->close();
 ?>
 
-</html>

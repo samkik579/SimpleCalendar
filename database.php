@@ -1,6 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-	
+
+
 <?php
 
 $mysqli = new mysqli('localhost', 'calUser', 'calPass', 'calendar');

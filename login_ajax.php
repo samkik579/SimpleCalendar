@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+
 
 <?php
 	// login_ajax.php
@@ -70,4 +69,3 @@
 	$stmt->close();
 ?>
 
-</html>
