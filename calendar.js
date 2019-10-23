@@ -34,10 +34,10 @@ function onload() {
         document.getElementById("logout_btn").addEventListener("click", logoutAjax, false);
         document.getElementById("deleteevent_btn").addEventListener("click", deleteEventAjax, false);
         document.getElementById("editevent_btn").addEventListener("click", editEventAjax, false);
-        document.getElementById("hometag").addEventListener("change", importantEvent, false);
-        document.getElementById("worktag").addEventListener("change", importantEvent, false);
-        document.getElementById("schooltag").addEventListener("change", importantEvent, false);
-        document.getElementById("funtag").addEventListener("change", importantEvent, false);
+        document.getElementById("importanthome").addEventListener("change", importantEvent, false);
+        document.getElementById("importantwork").addEventListener("change", importantEvent, false);
+        document.getElementById("importantschool").addEventListener("change", importantEvent, false);
+        document.getElementById("importantfun").addEventListener("change", importantEvent, false);
 
 
     document.getElementById("next_month_btn").addEventListener("click", function () {
@@ -61,6 +61,7 @@ function onload() {
 }
 
 function importantEvent() {
+    console.log("View changed");
     geteventAjax();
     console.log("View changed");
 }
@@ -152,9 +153,11 @@ function eventAjax(event) {
         'end_date': enddate, 
         'time': time, 
         'note': note, 
-        'tag' : tag,
-        'shareduser' : shareduser,
-        'focused' : focused
+        'work' : work,
+        'home': home,
+        'school': school,
+        'fun': fun,
+        'shareduser' : shareduser
     
     };
 
@@ -214,9 +217,14 @@ function editEventAjax(event) {
     const time = document.getElementById("edittime").value;
     const note = document.getElementById("editnote").value;
     const id = document.getElementById("editid").value;
-    const tag = document.getElementById("edittag").value;
+    let home = document.getElementById("hometag").checked;
+    let work = document.getElementById('worktag').checked;
+    let school = document.getElementById('schooltag').checked;
+    let fun = document.getElementById('funtag').checked;
 
-    const data = {'editid':id, 'newtitle': title, 'newstart_date': startdate, 'newend_date': enddate, 'newtime': time, 'newnote': note, 'newtag': tag };
+
+    const data = {'editid':id, 'newtitle': title, 'newstart_date': startdate, 'newend_date': enddate, 'newtime': time, 
+    'newnote': note, 'work': work, 'home': home, 'school': school, 'fun': fun};
 
     fetch("editevents.php", {
         method: 'POST',
@@ -297,21 +305,55 @@ function updateCalendar(event) {
 
 
                 for(j = 0; j < event.length; j++){
-                    if(document.getElementById("important").checked == true) {
-                        if((event[j].year == currentMonth.year) && (event[j].month == (date.getMonth()+1)) && (event[j].day == date.getDate()) && event[j].focused == true){ 
+                    if((event[j].year == currentMonth.year) && (event[j].month == (date.getMonth()+1)) && (event[j].day == date.getDate())) {
+                        console.log("in first if");
+                        if(document.getElementById("importanthome").checked == true && event[j].hometag == true) { 
+                                console.log("in second if");
                                 day.appendChild(document.createElement("br"));
                                 day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
                                 day.appendChild(document.createTextNode(": " + event[j].time));
                         }
-                    }
-                    else {
-                        if((event[j].year == currentMonth.year) && (event[j].month == (date.getMonth()+1)) && (event[j].day == date.getDate() && (event[j].focused == true || event[j].focused == false))){ 
+                        else if(document.getElementById("importantschool").checked == true && event[j].schooltag == true) { 
+                            console.log("in third if");
                             day.appendChild(document.createElement("br"));
                             day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
                             day.appendChild(document.createTextNode(": " + event[j].time));
-                            //day.innerHTML += " " + event[j].month + "/" + (event[j].day) + "/" + event[j].year;
-                         }   
+                        }
+
+                        else if(document.getElementById("importantwork").checked == true && event[j].worktag == true) { 
+                            console.log("in fourth if");
+                            day.appendChild(document.createElement("br"));
+                            day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
+                            day.appendChild(document.createTextNode(": " + event[j].time));
+                        }
+                        else if(document.getElementById("importantfun").checked == true && event[j].funtag == true) { 
+                            console.log("in fifth if");
+                            day.appendChild(document.createElement("br"));
+                            day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
+                            day.appendChild(document.createTextNode(": " + event[j].time));
+                        }
+
+                        else if (document.getElementById("importantfun").checked == false && 
+                        document.getElementById("importantwork").checked == false  && 
+                        document.getElementById("importantschool").checked == false &&
+                        document.getElementById("importanthome").checked == false ){
+                                console.log("in else");
+                                day.appendChild(document.createElement("br"));
+                                day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
+                                day.appendChild(document.createTextNode(": " + event[j].time));
+                        }
+
+
                     }
+
+                    /* else {
+                            if((event[j].year == currentMonth.year) && (event[j].month == (date.getMonth()+1)) && (event[j].day == date.getDate() && (event[j].focused == true || event[j].focused == false))){ 
+                                day.appendChild(document.createElement("br"));
+                                day.appendChild(document.createTextNode("  (#"  + event[j].id + ") " + event[j].title));
+                                day.appendChild(document.createTextNode(": " + event[j].time));
+                                //day.innerHTML += " " + event[j].month + "/" + (event[j].day) + "/" + event[j].year;
+                            }   
+                    } */
                 }  
         } 
         

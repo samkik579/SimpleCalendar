@@ -16,13 +16,17 @@ $newstartdate = $json_obj['newstart_date'];
 $newenddate = $json_obj['newend_date'];
 $newtime = $json_obj['newtime'];
 $newnote = $json_obj['newnote'];
+$work = $json_obj['work'];
+$home = $json_obj['home'];
+$school = $json_obj['school'];
+$fun = $json_obj['fun'];
 //This is equivalent to what you previously did with $_POST['username'] and $_POST['password']
-$stmt = $mysqli->prepare("UPDATE events SET username=?, title=?, note=?, start_date=?, end_date=?, time=? WHERE id=?");
+$stmt = $mysqli->prepare("UPDATE events SET username=?, title=?, note=?, start_date=?, end_date=?, time=?, isWork=?, isHome=?, isSchool=?, isFun=? WHERE id=?");
 if(!$stmt){
 	printf("Query Prep Failed: %s\n", $mysqli->error);
 	exit;
 }
-$stmt->bind_param('ssssssi', $_SESSION['username'], $newtitle, $newnote, $newstartdate, $newenddate, $newtime, $id);
+$stmt->bind_param('ssssssiiiii', $_SESSION['username'], $newtitle, $newnote, $newstartdate, $newenddate, $newtime, $work, $home, $school, $fun, $id);
 $stmt->execute(); 
 
 
